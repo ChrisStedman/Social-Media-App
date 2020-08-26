@@ -12,9 +12,7 @@ const PostForm = ({addPost}) => {
         event.preventDefault()
         const newPost = {
             user: "Bobalooba",
-            timestamp: new Date().toISOString(),
             content: postText,
-            likes : []
         }
         addPost(newPost)
         setPostText("")

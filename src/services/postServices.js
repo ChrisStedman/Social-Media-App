@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = 'http://localhost:3001/posts'
+const baseURL = 'http://localhost:3001/api/posts'
 
 const getAllPosts = () => {
     return axios.get(baseURL)
@@ -7,6 +7,7 @@ const getAllPosts = () => {
 }
 
 const createPost = (newPost) => {
+    console.log(newPost)
     return axios.post(baseURL, newPost)
     .then(response => response.data)
 }

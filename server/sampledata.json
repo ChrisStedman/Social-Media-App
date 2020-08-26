@@ -1135,6 +1135,13 @@
         "Barfoo",
         "Jimbulator"
       ]
+    },
+    {
+      "user": "Bobalooba",
+      "timestamp": "2020-08-12T07:45:18.016Z",
+      "content": "This is my post - It's working!!!",
+      "likes": [],
+      "id": 101
     }
   ]
 }
