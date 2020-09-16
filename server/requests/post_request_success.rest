@@ -1,14 +1,7 @@
 POST http://localhost:3001/api/posts
 Content-Type: application/json
+Authorisation: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidXNlcm5hbWUiOiJCb2JhbG9vYmEiLCJpYXQiOjE2MDAyNjA4MDJ9.UCQbvdpcANdGCj1kjT0Ldr2M1tWfvA1wLK6b774zaRU
      
     {
-      
-      "user": "Bobalooba",
-      "timestamp": "2020-09-14 23:03:18",
-      "content": "Newest Post via post plugin",
-      "likes": [
-        "Bobalooba",
-        "Jimbulator",
-        "Bean"
-      ]
+      "content": "new post"
     }

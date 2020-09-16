@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/posts
+Content-Type: application/json
+Authorisation: Bearer Bad_Token
+     
+    {
+      "content": "new post"
+    }

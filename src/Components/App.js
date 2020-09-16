@@ -32,7 +32,7 @@ const App = () => {
   //update state with new post
   const addPost = (newPost) => {
     
-    postServices.createPost(newPost)
+    postServices.createPost(newPost, user)
     .then(post =>{
       setPosts(posts.concat(post))
     })

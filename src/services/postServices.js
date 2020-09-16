@@ -6,9 +6,17 @@ const getAllPosts = () => {
     .then(response => response.data)
 }
 
-const createPost = (newPost) => {
-    console.log(newPost)
-    return axios.post(baseURL, newPost)
+const createPost = (newPost, user) => {
+    
+    if(!user){
+        return new Promise(() => null)
+    }
+
+    const config = {
+        headers: {Authorisation: "Bearer " + user.token}
+    }
+
+    return axios.post(baseURL, newPost, config)
     .then(response => response.data)
 }
 
