@@ -1,8 +1,9 @@
 {
   "users": [
     {
-      "id": "Bobalooba",
-      "password": "bob",
+      "id" : 0,
+      "username": "Bobalooba",
+      "password": "$2b$10$MbK0rQxDYKf6EwuuTDFoAeQk3vL1APlh2rcRe3srtjJzC5SKS2EI2",
       "avatar": "http://robohash.org/bob",
       "follows": [
         "Barfoo",
@@ -10,8 +11,9 @@
       ]
     },
     {
-      "id": "Jimbulator",
-      "password": "jim",
+      "id" : 1,
+      "username": "Jimbulator",
+      "password": "$2b$10$h32EzyIkOYQhZPIGSnHa3.lh9nvD7RDWBiPj4TrVYn5qjBw2ncxIi",
       "avatar": "http://robohash.org/jim",
       "follows": [
         "Bean",
@@ -19,32 +21,36 @@
       ]
     },
     {
-      "id": "Contrary",
-      "password": "mary",
+      "id" : 2,
+      "username": "Contrary",
+      "password": "$2b$10$Lqfky/xxfaAPnoXmpeBpDuLmOOGvZPYKtFDe9VriDepVD.D5AN9bO",
       "avatar": "http://robohash.org/mary",
       "follows": [
         "Barfoo"
       ]
     },
     {
-      "id": "Bean",
-      "password": "jb",
+      "id" : 3,
+      "username": "Bean",
+      "password": "$2b$10$jnwfI5BBroI1/xQo3vJ8q.Jt59Ohv.3oEe8ywxrNxuu7MYlrBBTBy",
       "avatar": "http://robohash.org/jb",
       "follows": [
         "Bobalooba"
       ]
     },
     {
-      "id": "Mandible",
-      "password": "mandible",
+      "id" : 4,
+      "username": "Mandible",
+      "password": "$2b$10$KgX9b7wbAHXdOmlJnsu74eNYT9VLdIJwMiu4U0X2TNePQLjqBOhLC",
       "avatar": "http://robohash.org/mandible",
       "follows": [
         "Contrary"
       ]
     },
     {
-      "id": "Barfoo",
-      "password": "bar",
+      "id" : 5,
+      "username": "Barfoo",
+      "password": "$2b$10$5S6JV0yfdk0Km5yM7RmoMeimBC2Mx2o.uEh6a3sCpcbUkpirRIMyG",
       "avatar": "http://robohash.org/bar",
       "follows": [
         "Jimbulator",

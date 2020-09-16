@@ -12,7 +12,7 @@ const Posts = ({posts, users}) => {
     return(postCopy.map(post => {
     
     //Find user linked to post
-        let user = users.filter(u => u.id === post.user)
+        let user = users.filter(u => u.username === post.user)
     
     //Display Post - Send post data and user Avatar
         return(

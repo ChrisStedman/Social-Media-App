@@ -1,0 +1,14 @@
+POST http://localhost:3001/api/posts
+Content-Type: application/json
+     
+    {
+      
+      "user": "Bobalooba",
+      "timestamp": "2020-09-14 23:03:18",
+      "content": "Newest Post via post plugin",
+      "likes": [
+        "Bobalooba",
+        "Jimbulator",
+        "Bean"
+      ]
+    }

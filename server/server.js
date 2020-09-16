@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
 app.use(cors())
 app.use(express.json())
 
@@ -14,11 +17,18 @@ const generateId = () => {
   return maxId + 1
 }
 
+const getUser = (username) => {
+  const user = users.filter(u => u.username === username)[0]
+  console.log(user)
+  return user
+}
+
 app.get('/', (request, response) => {
     response.send()
   })
 
 app.get('/api/posts', (request, response) => {
+ 
     response.json(posts)
 })
 
@@ -32,8 +42,9 @@ app.get('/api/posts/:id', (request, response) => {
 })
 
 app.post('/api/posts', (request, response) => {
+  
   const body = request.body
-  console.log(body)
+ 
   if(!body.content){
     return response.status(400).json(
       { error: 'content missing' })
@@ -48,6 +59,30 @@ app.post('/api/posts', (request, response) => {
   posts = posts.concat(newPost)
   response.json(newPost)
 })
+
+app.post('/api/login', async (request, response) => {
+  const {username, password} = request.body
+  const user = getUser(username)
+  
+  if(!user){
+    return response.status(401).json({error: "invalid username or password"})
+  }
+
+  if(await bcrypt.compare(password, user.password)){
+    
+    const userForToken = {
+      id: user.id,
+      username: user.username
+    }
+    const token = jwt.sign(userForToken, "secret")
+    
+    
+    return response.status(200).json({token})
+  }
+
+  return response.status(401).json({ error: "invalid username or password" })
+})
+
 
 app.get('/api/users', (request, response) => {
     response.json(users)

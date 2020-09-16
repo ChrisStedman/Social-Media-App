@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import Posts from './Posts'
 import PostForm from './PostForm'
+import LoginForm from './LoginForm'
 import postServices from '../services/postServices'
 import userServices from '../services/userServices'
 
 const App = () => {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
+  const [user, setUser] = useState(null)
 
   //Load user data from server
   useEffect(() => {
@@ -40,6 +42,7 @@ const App = () => {
 //Main body of webPage
 return(
   <div>
+    <LoginForm user={user} setUser={setUser} />
     <PostForm addPost={addPost} />
     <Posts posts={posts} users={users}/> 
   </div>
