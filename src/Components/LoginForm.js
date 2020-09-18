@@ -38,7 +38,6 @@ const LoginForm = ({ user, setUser }) => {
             
             <form onSubmit={formHandler}>
                 <div >
-               
                     <input type="text" name="username" value={username}
                         onChange={e => setUsername(e.target.value)}
                         placeholder="Username"

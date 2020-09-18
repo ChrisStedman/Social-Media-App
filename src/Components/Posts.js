@@ -1,6 +1,7 @@
 import React from 'react'
+import Button from './Button'
 
-const Posts = ({posts, users}) => {
+const Posts = ({posts, users, likeHandler}) => {
 
     //Copy post data to variable the sort posts by date
     //So newest displayed first
@@ -16,14 +17,14 @@ const Posts = ({posts, users}) => {
     
     //Display Post - Send post data and user Avatar
         return(
-            <DisplayPosts key={post.id} post={post} userAvatar={user[0].avatar}/> 
+            <DisplayPosts key={post.id} post={post} userAvatar={user[0].avatar} likeHandler={likeHandler}/> 
         )
     }))
 }
 
 
 
-const DisplayPosts = ({post, userAvatar}) => {
+const DisplayPosts = ({post, userAvatar, likeHandler}) => {
     const {id, user, timestamp, content, likes} = post
    
     return(
@@ -34,6 +35,7 @@ const DisplayPosts = ({post, userAvatar}) => {
                 <p className="timestamp">{new Date(timestamp).toUTCString()}</p>
             </div>
             <p className="postContent">{content}</p>
+            <Button eventHandler={() => likeHandler(post)} action="Like Post!" />
         </div>
     )
 }
