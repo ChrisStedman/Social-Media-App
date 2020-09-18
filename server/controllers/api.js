@@ -50,18 +50,38 @@ const generateId = (len) => {
       else
         response.status(404).end()
   })
+
+  apiRouter.put('/api/posts/:id', (request, response) => {
+
+    const userToken = getTokenFrom(request)
+    const decodedToken = jwt.verify(userToken, process.env.SECRET)
+    
+    if(!userToken || decodedToken.id === undefined){
+        
+        return response.status(401).json({ error: "Invalid token" })
+      }
+
+
+    const id = Number(request.params.id)
+    const newPost = request.body
+      
+    if(posts.find(p => p.id === id)){
+        
+        posts = posts.map(p => p.id === id ? newPost : p)
+        return response.status(200).json(newPost)
+    }
+    return response.status(401).json({ error: "Post not found" })
+    
+  })
   
   apiRouter.post('/api/posts', (request, response) => {
-    console.log("Inside new post")
     const body = request.body
-    console.log(body)
     if(!body.content){
       return response.status(400).json(
         { error: 'content missing' })
     }
     
     const userToken = getTokenFrom(request)
-    
     const decodedToken = jwt.verify(userToken, process.env.SECRET)
     
     if(!userToken || decodedToken.id === undefined){
@@ -93,10 +113,18 @@ const generateId = (len) => {
         id: user.id,
         username: user.username
       }
+
+      const strippedUser = {
+            id : user.id,
+            username: user.username,
+            avatar: user.avatar,
+            follows: user.follows
+          
+      }
       const token = jwt.sign(userForToken, process.env.SECRET)
       
       
-      return response.status(200).json({token, username: user.username})
+      return response.status(200).json({token, details: strippedUser})
     }
   
     return response.status(401).json({ error: "invalid username or password" })
@@ -145,7 +173,7 @@ const generateId = (len) => {
       response.json(strippedUsers)
   })
   
-  apiRouter.get('/api/users/:id', (request, response) => {
+  apiRouter.post('/api/users/:id', (request, response) => {
       const id = Number(request.params.id)
       const user = users.find(u => u.id === id)
       if (user)

@@ -4,20 +4,22 @@ import '../App.css';
 import LoginForm from './LoginForm'
 import postServices from '../services/postServices'
 import userServices from '../services/userServices'
-import CreateUserForm from './CreateUserForm'
 import Users from './Users'
 import Home from './Views/Home'
 import CreateUSer from './Views/CreateUser'
+import Explore from './Views/Explore'
+import User from './User'
 
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link, Redirect
 } from 'react-router-dom'
 
 const App = () => {
   const [users, setUsers] = useState([])
   const [posts, setPosts] = useState([])
   const [user, setUser] = useState(null)
+  const [isActive, setIsActive] = useState(false);
 
   //Load user data from server
   useEffect(() => {
@@ -32,6 +34,9 @@ const App = () => {
   useEffect(() => {
     postServices.getAllPosts()
       .then(posts => {
+        posts.sort((post1, post2) =>
+        new Date(post2.timestamp) - new Date(post1.timestamp)
+          )
         setPosts(posts)
       })
   }, [])
@@ -42,20 +47,29 @@ const App = () => {
 
     postServices.createPost(newPost, user)
       .then(post => {
-        setPosts(posts.concat(post))
+        setPosts([post,...posts])
       })
   }
 
   /////////////////////////////////////////////Implement better check of user logged in
   const likePost = (post) => {
-    console.log("Like post:", user)
 
-    if (user && !post.likes.includes(user.username)) {
+   
+    
+    if (user && !post.likes.includes(user.details.username)) {
       const newPost = {
         ...post,
-        likes: post.likes.concat(user.username)
+        likes: post.likes.concat(user.details.username)
       }
-      console.log(newPost)
+
+      postServices.updatePost(newPost, user)
+      .then(post => {
+        const updatedPosts = posts.map(
+          p => p.id === post.id ? newPost : p)
+          setPosts(updatedPosts)
+      }
+
+      )
     }
 
 
@@ -65,27 +79,37 @@ const App = () => {
   //Main body of webPage
   return (
     <Router>
-      <nav class="navbar is-dark" role="navigation" aria-label="main-navigation">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <Link to="/" class="navbar-item">Home</Link>
-            <Link to="/explore" class="navbar-item">Explore</Link>
+
+      <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+
+        <div className={`navbar-burger burger ${isActive ? "is-active" : ""}`}>
+          <a onClick={() => setIsActive(!isActive)} role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+
+        </div>
+        <div className={`navbar-menu ${isActive ? "is-active has-text-centered" : ""}`}>
+          <div className="navbar-start">
+            <Link to="/" className="navbar-item">Home</Link>
+            <Link to="/explore" className="navbar-item">Explore</Link>
 
             {user !== null ?
               <>
-                <Link to="/users" class="navbar-item">Users</Link>
-                <Link to="/follows" class="navbar-item">Follows</Link>
+                <Link to="/users" className="navbar-item">Users</Link>
+                <Link to="/follows" className="navbar-item">Follows</Link>
               </> : <>
-                <Link to="/create-account" class="navbar-item">Create Account</Link>
+                <Link to="/create-account" className="navbar-item">Create Account</Link>
               </>
             } </div>
 
-          <div class="navbar-end">
+          <div className="navbar-end">
             {user === null ?
               <>
-                <LoginForm user={user} setUser={setUser} />
+                <LoginForm user={user} setUser={setUser} className="navbar-item" />
               </> : <>
-                <Link to="/profile" class="navbar-item">Profile</Link>
+                <Link to="/profile" className="navbar-item">Profile</Link>
               </>
             } </div>
         </div>
@@ -93,7 +117,12 @@ const App = () => {
 
 
       <Switch>
-        <Route path="/explore"></Route>
+        <Route path="/explore">
+          <Explore posts={posts} users={users} likeHandler={likePost} user={user}/>
+        </Route>
+        <Route path="/users/:username">
+          <User users={users} posts={posts} />
+          </Route>
         <Route path="/users">
           <Users users={users} />
         </Route>
@@ -102,11 +131,8 @@ const App = () => {
         <Route path="/create-account">
           <CreateUSer setUser={setUser} />
         </Route>
-        <Route path="/login">
-
-        </Route>
         <Route path="/">
-          <Home posts={posts} users={users} addPost={addPost} likePost={likePost}></Home>
+          <Home posts={posts} users={users} addPost={addPost} likePost={likePost} user={user}></Home>
 
         </Route>
       </Switch>

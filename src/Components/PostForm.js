@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Notification from './Notification'
 
 //Form for creating new posts
-const PostForm = ({addPost}) => {
-    const[postText, setPostText] = useState("")
+const PostForm = ({ addPost, user }) => {
+    const [postText, setPostText] = useState("")
     //const[notification, setNotification] = useState({id: -1, message: ""})
     const maxPostLength = 72
 
@@ -13,29 +13,62 @@ const PostForm = ({addPost}) => {
     //Form onSubmit handler - create new form object
     const formOnSubmitHandler = (event) => {
         event.preventDefault()
-        if(checkPostLength(maxPostLength)){
-            addPost({content: postText})
+        if (checkPostLength(maxPostLength)) {
+            addPost({ content: postText })
             setPostText("")
-        } 
+        }
     }
-  
-    const checkPostLength = maxLength =>  postText.length <= maxLength
 
-    const setNotificationMessage = () => 
+    const checkPostLength = maxLength => postText.length <= maxLength
+
+    const setNotificationMessage = () =>
         `Your message is ${postText.length} characters which exceeds the limit of ${maxPostLength} characters.
          Please try again`
 
-    return(
-        <div id="postForm">
-            <h3>New Post</h3>
-            <form onSubmit= {formOnSubmitHandler}>
-                <input required value={postText} onChange={postOnChangeHandler}></input>
-                <button type="submit">Submit New Post</button>
-            </form>
-            {!checkPostLength(maxPostLength) ? 
-                <Notification message={setNotificationMessage()} id={1}/> : <> </>
-            }   
+
+    return (
+        <div>
+
+            <div className="column is-half is-offset-one-quarter has-text-centered">
+                <div className="title">New Post</div>
+                <article class="media">
+                    <div className="media-left">
+                        <figure class="image is-64x64">
+                            <img src={user.details.avatar} />
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <form onSubmit={formOnSubmitHandler}>
+                            <div class="field">
+                                <textarea class="textarea"
+                                    placeholder="What would you like to say?"
+                                    required
+                                    value={postText}
+                                    onChange={postOnChangeHandler} />
+                            </div>
+                            <button className="button is-dark is-fullwidth" type="submit">Submit New Post</button>
+                        </form>
+                    </div>
+
+
+                </article>
+
+                
+            </div>
+            {!checkPostLength(maxPostLength) ?
+                    <div className="notification container is-danger">
+                        <Notification message={setNotificationMessage()} />
+                    </div> : <> </>
+                }
         </div>
+
+
+
+
+
+
+
+
     )
 }
 

@@ -20,4 +20,18 @@ const createPost = (newPost, user) => {
     .then(response => response.data)
 }
 
-export default {getAllPosts, createPost}
+const updatePost = (updatedUnit, user) => {
+
+    if(!user){
+        return new Promise(() => null)
+    }
+
+    const config = {
+        headers: {Authorisation: "Bearer " + user.token}
+    }
+
+    return axios.put(baseURL + "/" + updatedUnit.id, updatedUnit, config)
+    .then(response => response.data)
+}
+
+export default {getAllPosts, createPost, updatePost}

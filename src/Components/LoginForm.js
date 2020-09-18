@@ -37,17 +37,28 @@ const LoginForm = ({ user, setUser }) => {
         return (
             
             <form onSubmit={formHandler}>
-                <div >
+                <div className="field is-horizontal">
+                    <div className="field-body">
+                    
+                    <div className="field">
                     <input type="text" name="username" value={username}
                         onChange={e => setUsername(e.target.value)}
                         placeholder="Username"
+                        className="input"
                     />
-                
+                    </div>
+
+                    <div className="field">
                     <input type="password" name="password" value={password}
                         onChange={e => setPassword(e.target.value)}
-                        placeholder="***********"
+                        placeholder="Password"
+                        className="input"
                     />
-                    <input type="submit" value="Login" />
+                    </div>
+                    <div className="field">
+                    <input type="submit" value="Login" className="button is-link"/>
+                    </div>
+                    </div>
                 </div>
             </form>
         )
