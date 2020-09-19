@@ -145,7 +145,7 @@ const generateId = (len) => {
         id : users.length
     }
     
-    console.log(newUser)
+    
     users = users.concat(newUser)
 
     const userForToken = {
@@ -153,9 +153,11 @@ const generateId = (len) => {
         username: newUser.username
       }
     const token = jwt.sign(userForToken, process.env.SECRET)
+
+    delete newUser.password
     
-    console.log(users)
-    return response.status(200).json({token, username: newUser.username})
+    
+    return response.status(200).json({token, details: newUser})
 
   })
   

@@ -1,14 +1,17 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 import Posts from './Posts'
+import {useSelector} from 'react-redux'
 
-const User = ({users, posts}) => {
+const User = () => {
+    const posts = useSelector(state => state.posts) 
     const username = useParams().username
-    console.log(username)
-    const user = users.find(u => u.username === username)
+    ///////////////////////////////////////////Crashes if refresh on page
+    const user = useSelector(state => state.users.find(u => u.username === username))
+    
+    
     const userPosts = posts.find(p => p.user = username)
 
-    console.log(user)
 
     return(
       

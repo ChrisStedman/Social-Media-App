@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import createUserServices from '../services/createUserServices'
-import Notification from './Notification'
 
-const CreateUserForm = ({ setUser }) => {
+
+const CreateUserForm = ({ setUser, addUser }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -19,6 +19,7 @@ const CreateUserForm = ({ setUser }) => {
                 .then(data => {
 
                     setUser(data)
+                    addUser(data.details)
                     setUsername("")
                     setPassword("")
                     setConfirmPassword("")

@@ -1,8 +1,13 @@
 import React from 'react'
 import Posts from '../Posts'
 import PostForm from '../PostForm'
+import {useSelector} from 'react-redux'
 
-const Home = ({addPost, posts, users, likePost, user}) => {
+const Home = ({addPost, likePost}) => {
+    const posts = useSelector(state => state.posts)
+    const users = useSelector(state => state.users)
+    const user = useSelector(state => state.user)
+
     return(
     <div>
         {user ? <PostForm addPost={addPost} user={user}/> : 

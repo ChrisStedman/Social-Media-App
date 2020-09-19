@@ -1,19 +1,23 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 
-const Users = ({users}) => {
-
+const Users = () => {
+    const users = useSelector(state => state.users)
+    
     return(
-    users.map(u => {
-        return(<DisplayUser key={u.id} user={u}/>)
-    })
+        <div >
+   { users.map(u => {
+        return(<DisplayUser key={u.id} user={u} />)
+    })}
+    </div>
     )
 }
 
 const DisplayUser =({user}) => {
     return(
         <Link to={`/users/${user.username}`}>
-        <figure>
+        <figure >
             <img src={user.avatar} />
             <figcaption>{user.username}</figcaption>
         </figure> 

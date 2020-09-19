@@ -1,7 +1,11 @@
 import React from 'react'
 import Posts from '../Posts'
+import {useSelector} from 'react-redux'
 
-const Explore = ({posts, users, likeHandler, user}) => {
+const Explore = ({ likeHandler }) => {
+    const posts = useSelector(state => state.posts)
+    const users = useSelector(state => state.users)
+    
     
     let topPosts = posts.slice().sort((post1, post2) => 
         post2.likes.length - post1.likes.length)
@@ -10,9 +14,9 @@ const Explore = ({posts, users, likeHandler, user}) => {
     return (
         <div class="field">
             <div class="title">Top Posts</div>
-            <Posts posts={topPosts} users={users} likeHandler={likeHandler} limit={10} user={user}/>
+            <Posts posts={topPosts} users={users} likeHandler={likeHandler} limit={10} />
             <div class="title">Recent Posts</div>
-            <Posts posts={posts} users={users} likeHandler={likeHandler} limit={10} user={user}/>
+            <Posts posts={posts} users={users} likeHandler={likeHandler} limit={10} />
             
         </div>
     )

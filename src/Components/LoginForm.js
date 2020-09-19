@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import loginService from '../services/loginServices'
 import Button from './Button'
+import { useSelector } from 'react-redux'
 
-const LoginForm = ({ user, setUser }) => {
+const LoginForm = ({setUser}) => {
+    const user = useSelector(state => state.user)
+    
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const formHandler = (event) => {
         event.preventDefault()
-
         loginService.login(username, password)
             .then(data => {
                 

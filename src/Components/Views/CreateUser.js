@@ -1,10 +1,10 @@
 import React from 'react'
 import CreateUserForm from '../CreateUserForm'
 
-const CreateUser = ({setUser}) => {
+const CreateUser = ({setUser, addUser}) => {
     return(
-    <CreateUserForm setUser={setUser} />
+    <CreateUserForm setUser={setUser} addUser={addUser} />
     )
 }
 
-export default CreateUserForm
+export default CreateUser
