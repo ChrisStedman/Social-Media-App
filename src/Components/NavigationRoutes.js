@@ -1,13 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Users from './Users'
 import User from './Views/User'
 import Home from './Views/Home'
 import CreateUser from './Views/CreateUser'
 import Explore from './Views/Explore'
+import { useSelector } from 'react-redux';
 
-const NavigationRoutes = ({ likePost, setUser, addUser, addPost, followUser, unfollowUser }) => {
+const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
+    const user = useSelector(state => state.user)
    
 
     return (
@@ -18,7 +20,7 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost, followUser, unf
             </Route>
 
             <Route path="/users/:username">
-                <User likeHandler={likePost} followUser={followUser} unfollowUser={unfollowUser}/>
+                <User likeHandler={likePost} addPost={addPost}/>
             </Route>
 
             <Route path="/users">
@@ -27,10 +29,14 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost, followUser, unf
 
             <Route path="/follows"></Route>
 
-            <Route path="/profile"></Route>
+            <Route path="/profile">
+                {user ?  <Redirect to={`/users/${user.details.username}`} /> : <Redirect to={`/`} />}
+               
+            </Route>
 
             <Route path="/create-account">
-                <CreateUser setUser={setUser} addUser={addUser} />
+                {user ? <Redirect to={`/users/${user.details.username}`} /> :
+                <CreateUser setUser={setUser} addUser={addUser} />}
             </Route>
 
             <Route path="/">

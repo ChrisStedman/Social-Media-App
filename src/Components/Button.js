@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Button = ({eventHandler, action, style}) => {
+const Button = ({eventHandler, action, addStyle}) => {
     
-        return <button className={`button ${style}`} onClick={eventHandler}>{action}</button>
+        return <button className={`button ${addStyle}`} onClick={eventHandler}>{action}</button>
 }
 
 export default Button

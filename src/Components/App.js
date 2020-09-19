@@ -14,7 +14,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux'
 import {initialisePosts, createPost, addLikes} from '../Reducers/postReducer'
 import {initialiseUsers, createUser} from '../Reducers/userReducer'
-import {userLogin, updateUser} from '../Reducers/currentUserReducer'
+import {userLogin} from '../Reducers/currentUserReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -71,21 +71,7 @@ const App = () => {
     }
   }
 
-  const followUser = (username) => {
-   
-    userServices.followUser(username, user)
-      .then(user => {
-        dispatch(updateUser(user)) 
-      })  
-  }
 
-  const unfollowUser = (username) => {
-   
-    userServices.unfollowUser(username, user)
-      .then(user => {
-        dispatch(updateUser(user)) 
-      })  
-  }
 
   const setUser = (user) => dispatch(userLogin(user))
 
@@ -97,7 +83,7 @@ const App = () => {
     <Router>
       <NavigationBar setUser={setUser}/>
       <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser} 
-      addPost={addPost} followUser={followUser} unfollowUser={unfollowUser} />
+      addPost={addPost} />
     </Router>
   )
 }
