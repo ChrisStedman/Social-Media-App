@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from './Button'
+import ProcessText from './ProcessText'
 import { useSelector } from 'react-redux'
 
 const Posts = ({ posts, likeHandler, limit = -1 }) => {
@@ -48,7 +49,7 @@ const DisplayPosts = ({ post, userAvatar, likeHandler, currentUser }) => {
                 <div className="media-content">
                     <div className="content">
                         <small>{date} - {time}</small>
-                        <p>{content}</p>
+                        <ProcessText content={content} />
                         <p>This post has {likes.length} likes!</p>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Notification from './Notification'
+import Notification from '../Notification'
 
 //Form for creating new posts
 const PostForm = ({ addPost, user }) => {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import Posts from './Posts'
-import Button from './Button'
-import Follow from './Follow'
+import Posts from '../Posts'
+import Button from '../Button'
+import Follow from '../Follow'
 import { useSelector } from 'react-redux'
 
 const User = ({ likeHandler, followUser, unfollowUser }) => {

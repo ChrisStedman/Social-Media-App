@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
-import LoginForm from './LoginForm'
+import LoginForm from './Forms/LoginForm'
 
 const NavigationBar = ({setUser}) => {
     const user = useSelector(state => state.user)

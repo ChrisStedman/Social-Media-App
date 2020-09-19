@@ -1,6 +1,6 @@
 import React from 'react'
 import Posts from '../Posts'
-import PostForm from '../PostForm'
+import PostForm from '../Forms/PostForm'
 import {useSelector} from 'react-redux'
 
 const Home = ({addPost, likePost}) => {
@@ -15,7 +15,7 @@ const Home = ({addPost, likePost}) => {
         <p>You must be logged in to post</p>
         </div>}
         
-        <Posts posts={posts} likeHandler={likePost} limit={10} user={user}/>
+        <Posts posts={posts} likeHandler={likePost} user={user}/>
     </div>
     )
 }

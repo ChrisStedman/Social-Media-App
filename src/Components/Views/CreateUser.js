@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateUserForm from '../CreateUserForm'
+import CreateUserForm from '../Forms/CreateUserForm'
 
 const CreateUser = ({setUser, addUser}) => {
     return(

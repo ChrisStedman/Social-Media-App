@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import loginService from '../services/loginServices'
-import Button from './Button'
+import loginService from '../../services/loginServices'
+import Button from '../Button'
 import { useSelector } from 'react-redux'
 
 const LoginForm = ({setUser}) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import createUserServices from '../services/createUserServices'
+import createUserServices from '../../services/createUserServices'
 
 
 const CreateUserForm = ({ setUser, addUser }) => {
