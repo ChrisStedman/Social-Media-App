@@ -7,7 +7,8 @@ import Home from './Views/Home'
 import CreateUser from './Views/CreateUser'
 import Explore from './Views/Explore'
 
-const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
+const NavigationRoutes = ({ likePost, setUser, addUser, addPost, followUser, unfollowUser }) => {
+   
 
     return (
         <Switch>
@@ -17,7 +18,7 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
             </Route>
 
             <Route path="/users/:username">
-                <User />
+                <User likeHandler={likePost} followUser={followUser} unfollowUser={unfollowUser}/>
             </Route>
 
             <Route path="/users">

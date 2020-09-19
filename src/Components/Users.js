@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 
 const Users = () => {
     const users = useSelector(state => state.users)
-    
+
     return(
         <div >
    { users.map(u => {
@@ -18,7 +18,7 @@ const DisplayUser =({user}) => {
     return(
         <Link to={`/users/${user.username}`}>
         <figure >
-            <img src={user.avatar} />
+            <img src={user.avatar} alt={`${user.username} avatar`}/>
             <figcaption>{user.username}</figcaption>
         </figure> 
         </Link>

@@ -61,7 +61,6 @@ const generateId = (len) => {
         return response.status(401).json({ error: "Invalid token" })
       }
 
-
     const id = Number(request.params.id)
     const newPost = request.body
       
@@ -71,7 +70,6 @@ const generateId = (len) => {
         return response.status(200).json(newPost)
     }
     return response.status(401).json({ error: "Post not found" })
-    
   })
   
   apiRouter.post('/api/posts', (request, response) => {
@@ -145,7 +143,6 @@ const generateId = (len) => {
         id : users.length
     }
     
-    
     users = users.concat(newUser)
 
     const userForToken = {
@@ -155,7 +152,6 @@ const generateId = (len) => {
     const token = jwt.sign(userForToken, process.env.SECRET)
 
     delete newUser.password
-    
     
     return response.status(200).json({token, details: newUser})
 
@@ -175,13 +171,25 @@ const generateId = (len) => {
       response.json(strippedUsers)
   })
   
-  apiRouter.post('/api/users/:id', (request, response) => {
-      const id = Number(request.params.id)
-      const user = users.find(u => u.id === id)
-      if (user)
-        response.json(user)
-      else
+  apiRouter.put('/api/users/:id', (request, response) => {
+    const userToken = getTokenFrom(request)
+    const decodedToken = jwt.verify(userToken, process.env.SECRET)
+    
+    if(!userToken || decodedToken.id === undefined){
+      return response.status(401).json({ error: "Invalid token" })
+    }
+
+    const id = Number(request.params.id) 
+    const body = request.body
+    const user = users.find(u => u.id === id)
+
+      if(!user){
         response.status(404).end()
+      }
+
+      users = users.map(u => u.id === id ? body : u)
+      response.status(200).json(body)
+       
     })
 
 module.exports = apiRouter

@@ -1,7 +1,9 @@
 const currentUserReducer = (state = null, action) => {
     switch (action.type){
       case 'LOGIN':
-        return action.data  
+        return action.data
+    case 'UPDATE_USER':
+            return {token: state.token, details : action.data}
       default:
         return state
     }
@@ -13,5 +15,13 @@ const currentUserReducer = (state = null, action) => {
       data : user
     }
   }
+
+  export const updateUser = (user) => {
+      
+    return {
+        type: "UPDATE_USER",
+        data : user
+    }
+}
 
   export default currentUserReducer

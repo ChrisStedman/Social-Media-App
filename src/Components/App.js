@@ -14,18 +14,21 @@ import {
 import {useDispatch, useSelector} from 'react-redux'
 import {initialisePosts, createPost, addLikes} from '../Reducers/postReducer'
 import {initialiseUsers, createUser} from '../Reducers/userReducer'
-import {userLogin} from '../Reducers/currentUserReducer'
+import {userLogin, updateUser} from '../Reducers/currentUserReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
  
-
+/////////////////////////////////////////////////////////////////Improve useEffect with redux-thunk? In video 2
   //Load user data from server
+  
   useEffect(() => {
+    
     userServices.getAllUsers()
       .then(users => {
         dispatch(initialiseUsers(users))
+    
       })
   }, [])
 
@@ -68,6 +71,22 @@ const App = () => {
     }
   }
 
+  const followUser = (username) => {
+   
+    userServices.followUser(username, user)
+      .then(user => {
+        dispatch(updateUser(user)) 
+      })  
+  }
+
+  const unfollowUser = (username) => {
+   
+    userServices.unfollowUser(username, user)
+      .then(user => {
+        dispatch(updateUser(user)) 
+      })  
+  }
+
   const setUser = (user) => dispatch(userLogin(user))
 
   const addUser = (user) => dispatch(createUser(user))
@@ -77,7 +96,8 @@ const App = () => {
   return (
     <Router>
       <NavigationBar setUser={setUser}/>
-      <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser} addPost={addPost}/>
+      <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser} 
+      addPost={addPost} followUser={followUser} unfollowUser={unfollowUser} />
     </Router>
   )
 }

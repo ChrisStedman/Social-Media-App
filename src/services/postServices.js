@@ -21,7 +21,7 @@ const createPost = (newPost, user) => {
     .then(response => response.data)
 }
 
-const updatePost = (updatedUnit, user) => {
+const updatePost = (updatedPost, user) => {
 
     if(!user){
         return new Promise(() => null)
@@ -31,7 +31,7 @@ const updatePost = (updatedUnit, user) => {
         headers: {Authorisation: "Bearer " + user.token}
     }
 
-    return axios.put(baseURL + "/" + updatedUnit.id, updatedUnit, config)
+    return axios.put(baseURL + "/" + updatedPost.id, updatedPost, config)
     .then(response => response.data)
 }
 

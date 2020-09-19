@@ -15,7 +15,7 @@ const Home = ({addPost, likePost}) => {
         <p>You must be logged in to post</p>
         </div>}
         
-        <Posts posts={posts} users={users} likeHandler={likePost} limit={10} user={user}/>
+        <Posts posts={posts} likeHandler={likePost} limit={10} user={user}/>
     </div>
     )
 }

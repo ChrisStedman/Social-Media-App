@@ -18,7 +18,7 @@ const LoginForm = ({setUser}) => {
                 setUser(data)
                 setUsername("")
                 setPassword("")
-                console.log(data)
+               
             }
             ).catch(error => {
                 alert("Login Unsuccessful")

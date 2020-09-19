@@ -25,22 +25,21 @@ const PostForm = ({ addPost, user }) => {
         `Your message is ${postText.length} characters which exceeds the limit of ${maxPostLength} characters.
          Please try again`
 
-
     return (
         <div>
 
             <div className="column is-half is-offset-one-quarter has-text-centered">
                 <div className="title">New Post</div>
-                <article class="media">
+                <article className="media">
                     <div className="media-left">
-                        <figure class="image is-64x64">
-                            <img src={user.details.avatar} />
+                        <figure className="image is-64x64">
+                            <img src={user.details.avatar} alt={`User avatar`}/>
                         </figure>
                     </div>
-                    <div class="media-content">
+                    <div className="media-content">
                         <form onSubmit={formOnSubmitHandler}>
-                            <div class="field">
-                                <textarea class="textarea"
+                            <div className="field">
+                                <textarea className="textarea"
                                     placeholder="What would you like to say?"
                                     required
                                     value={postText}
