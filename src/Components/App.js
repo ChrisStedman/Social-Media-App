@@ -23,7 +23,7 @@ const App = () => {
 /////////////////////////////////////////////////////////////////Improve useEffect with redux-thunk? In video 2
   //Load user data from server
   
-  useEffect(() => {
+  useEffect( () => {
     
     userServices.getAllUsers()
       .then(users => {
@@ -31,7 +31,6 @@ const App = () => {
     
       })
   }, [])
-
 
   //Load post data from server - Store in date order
   useEffect(() => {
@@ -70,8 +69,6 @@ const App = () => {
       )
     }
   }
-
-
 
   const setUser = (user) => dispatch(userLogin(user))
 

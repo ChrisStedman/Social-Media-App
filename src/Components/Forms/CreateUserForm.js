@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import createUserServices from '../../services/createUserServices'
+import userServices from '../../services/userServices'
 
 
 const CreateUserForm = ({ setUser, addUser }) => {
@@ -15,7 +15,7 @@ const CreateUserForm = ({ setUser, addUser }) => {
         } else {
 
             ////////////////////////////////////////////////////////////////Need better error checking
-            createUserServices.createUser(username, password)
+            userServices.createUser(username, password)
                 .then(data => {
 
                     setUser(data)

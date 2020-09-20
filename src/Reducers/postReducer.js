@@ -13,12 +13,14 @@ const postReducer = (state = [], action) => {
         }
         return state.map(post => post.id === id ? updatedProduct : post)
       }
-  
+      case 'DELETE_POST':
+        return state.filter(post => post.id !== action.data)
       default:
         return state
     }
   }
 
+  //Create initial post store
   export const initialisePosts = (posts) => {
       return {
           type: 'INIT_POSTS',
@@ -26,6 +28,7 @@ const postReducer = (state = [], action) => {
       }
   }
 
+  //Add new post to store
   export const createPost = (post) => {
     return {
       type: "NEW_POST",
@@ -33,6 +36,7 @@ const postReducer = (state = [], action) => {
     }
   }
   
+  //Add likes to post
   export const addLikes = (id, user) => {
     return {
       type: "UPDATE_LIKES",
@@ -40,6 +44,13 @@ const postReducer = (state = [], action) => {
         id : id,
         user : user
       }
+    }
+  }
+
+  export const deletePostID = (id) => {
+    return {
+      type: "DELETE_POST",
+      data : id
     }
   }
 

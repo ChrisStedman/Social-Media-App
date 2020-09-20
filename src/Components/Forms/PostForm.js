@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import Notification from '../Notification'
 
 //Form for creating new posts
 const PostForm = ({ addPost, user }) => {
     const [postText, setPostText] = useState("")
-    //const[notification, setNotification] = useState({id: -1, message: ""})
-    const maxPostLength = 72
+    const maxPostLength = 144
 
     //Form onChange handler - Update state of post text
     const postOnChangeHandler = (event) => setPostText(event.target.value)
@@ -56,7 +54,7 @@ const PostForm = ({ addPost, user }) => {
             </div>
             {!checkPostLength(maxPostLength) ?
                     <div className="notification container is-danger">
-                        <Notification message={setNotificationMessage()} />
+                        <p>{setNotificationMessage()} </p>
                     </div> : <> </>
                 }
         </div>

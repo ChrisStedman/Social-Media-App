@@ -2,7 +2,8 @@ import React from 'react'
 import Button from './Button'
 import {useSelector, useDispatch} from 'react-redux'
 import userServices from '../services/userServices'
-import {updateUser} from '../Reducers/currentUserReducer'
+import {updateCurrentUser} from '../Reducers/currentUserReducer'
+import {updateUser} from '../Reducers/userReducer'
 
 const Follow = ({username, addStyle}) => {
     const dispatch = useDispatch()
@@ -12,12 +13,16 @@ const Follow = ({username, addStyle}) => {
         return <> </>
     }
 
+    if(user.details.username === username)
+    return <> </>
+ 
     const handleFollowUser = (event) => {
         event.preventDefault()
    
         userServices.followUser(username, user)
-          .then(user => {
-            dispatch(updateUser(user)) 
+          .then(updatedUser => {
+            dispatch(updateCurrentUser(updatedUser))
+            dispatch(updateUser(updatedUser))
           })  
       }
     
@@ -25,8 +30,9 @@ const Follow = ({username, addStyle}) => {
         event.preventDefault()
        
         userServices.unfollowUser(username, user)
-          .then(user => {
-            dispatch(updateUser(user)) 
+          .then(updatedUser => {
+            dispatch(updateCurrentUser(updatedUser)) 
+            dispatch(updateUser(updatedUser))
           })  
       }
 

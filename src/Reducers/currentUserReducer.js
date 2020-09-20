@@ -9,6 +9,7 @@ const currentUserReducer = (state = null, action) => {
     }
   }
 
+  //Set user in store
   export const userLogin = (user) => {
     return {
       type: "LOGIN",
@@ -16,8 +17,8 @@ const currentUserReducer = (state = null, action) => {
     }
   }
 
-  export const updateUser = (user) => {
-      
+  //Update user in store
+  export const updateCurrentUser = (user) => {
     return {
         type: "UPDATE_USER",
         data : user

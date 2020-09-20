@@ -6,6 +6,7 @@ import User from './Views/User'
 import Home from './Views/Home'
 import CreateUser from './Views/CreateUser'
 import Explore from './Views/Explore'
+import MyFollows from './Views/MyFollows'
 import { useSelector } from 'react-redux';
 
 const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
@@ -27,7 +28,9 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
                 <Users />
             </Route>
 
-            <Route path="/follows"></Route>
+            <Route path="/follows">
+                <MyFollows />
+            </Route>
 
             <Route path="/profile">
                 {user ?  <Redirect to={`/users/${user.details.username}`} /> : <Redirect to={`/`} />}

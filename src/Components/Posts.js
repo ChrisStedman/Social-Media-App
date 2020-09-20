@@ -1,102 +1,89 @@
 import React, { useState } from 'react'
 import Button from './Button'
 import ProcessText from './ProcessText'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Follow from './Follow'
+import { useSelector, useDispatch } from 'react-redux'
+import postServices from '../services/postServices'
+import { deletePostID } from '../Reducers/postReducer'
+import UserDetails from './UserDetails'
+import Likes from './Likes'
 
-const Posts = ({ posts, likeHandler}) => {
+const Posts = ({ posts, likeHandler }) => {
+    const dispatch = useDispatch()
     const user = useSelector(state => state.user)
     const users = useSelector(state => state.users)
     const [limit, setLimit] = useState(10);
 
-    //Copy post data to variable the sort posts by date
-    //So newest displayed first
+    //Store copy of posts up to defined limit
     let postCopy = posts.slice(0, limit)
 
-    //For every element in sorted array of posts
+    //Initiate DELETE request and updated store
+    const deletePost = (postID) => {
+        postServices.deletePost(postID, user)
+            .then(post => {
+                dispatch(deletePostID(postID))
+            }).catch(error => {
+
+            })
+    }
+
     return (
         <div>
-        {postCopy.map(post => {
+            {postCopy.map(post => {
 
-        //Find user linked to post
-        
-         let userAvatar =  users ? users.filter(u => u.username === post.user)[0].avatar : null
-        
+                //Store user avatar if users defined, else null - Prevent errors if user not set
+                let userAvatar = users ? users.filter(u => u.username === post.user)[0].avatar : null
 
-        //Display Post - Send post data and user Avatar
-        return (
-            <DisplayPosts key={post.id} post={post}
-                userAvatar={userAvatar} likeHandler={likeHandler}
-                currentUser={user}
-            />
-           
-        )
-    })}
-
-    {limit < posts.length ? <Button eventHandler={() => setLimit(limit+10) } action="See more... " addStyle="is-link is-fullwidth" /> : <></>}
-
-    </div>
-    
-    
+                //Display Post - Send post data and user Avatar
+                return (
+                    <DisplayPosts key={post.id} post={post}
+                        userAvatar={userAvatar} likeHandler={likeHandler}
+                        currentUser={user} deletePostHandler={deletePost}
+                    />
+                )
+            })}
+            {
+                //If limit less than number of total posts, display a see-more button
+                limit < posts.length ? <Button eventHandler={() =>
+                    setLimit(limit + 10)} action="See more... " addStyle="is-link is-fullwidth mx-2 " /> : <></>}
+        </div>
     )
 }
 
-
-
-const DisplayPosts = ({ post, userAvatar, likeHandler, currentUser }) => {
-    const [showLikes, setShowLikes] = useState(false)
-    const { user, timestamp, content, likes } = post
+//Takes required information to display post and renders
+const DisplayPosts = ({ post, userAvatar, likeHandler, currentUser, deletePostHandler }) => {
+  
+    const { id, user, timestamp, content } = post
     const date = new Date(timestamp).toDateString()
     const time = new Date(timestamp).toLocaleTimeString()
 
     return (
-        <div className="box mx-6">
+        <div className="box mx-5 is-mobile">
             <article className="media">
-                <div className="media-left has-text-centered">
-                    <figure className="image is-96x96">
-                        <img src={userAvatar} alt={`${user.username} avatar`} />
-                    </figure>
-                    <strong>{user}</strong>
-                    <Follow username={user} addStyle="is-small is-fullwidth"/>
-                </div>
-
+                <UserDetails user={user} userAvatar={userAvatar} />
                 <div className="media-content">
                     <div className="content">
                         <small>{date} - {time}</small>
                         <ProcessText content={content} />
                     </div>
-                    <nav className="level is-mobile">
+                    <nav className="level is-fixed-bottom pt-4" >
                         <div className="level-left">
                             <div className="level-item">
-
-                                {currentUser ?
-                                    <> 
-                                        <Button eventHandler={() => likeHandler(post)}
-                                            action={`${likes.includes(currentUser.details.username) ? "Liked!" : "Like Post!"}`} 
-                                            addStyle={`is-small is-link ${likes.includes(currentUser.details.username) ? "": "is-outlined"} mx-2`} />
-
-                                        <Button eventHandler={() => setShowLikes(!showLikes)}
-                                            action={`${likes.length} Likes`} addStyle="is-small is-link is-outlined" />
-
-                                        {showLikes ? <div className="field is-horizontal ">
-                                            {likes.slice(0, 4).map(
-                                                (u,i) => <Link key={i} to={`/users/${u}`} className="button is-small is-link is-light ml-2">{u}</Link>)
-                        
-                                                }
-                                        {likes.length > 4 ? <p className="button is-small is-link is-light ml-2">And more...</p> : <></>}
-                                        </div> : <> </>}
-
-                                    </> : <> </>}
+                                <Likes post={post} currentUser={currentUser} likeHandler={likeHandler}/>
                             </div>
                         </div>
 
+                        {currentUser && user === currentUser.details.username ?
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <Button eventHandler={() => deletePostHandler(id)}
+                                        action={`DELETE POST`} addStyle="is-small is-danger" />
+                                </div>
+                            </div> : <> </>
+                        }
                     </nav>
                 </div>
-
-
             </article>
-        </div>
+        </div >
     )
 }
 

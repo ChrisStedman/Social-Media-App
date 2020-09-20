@@ -10,8 +10,8 @@ const Explore = ({ likeHandler }) => {
 
 
     return (
-        <div className="columns">
-            <div className="column">
+        <div className="columns my-4">
+            <div className="column mx-1">
                 <div className="field has-text-centered">
             <div className="title">Top Posts</div>
             </div>

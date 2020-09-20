@@ -27,7 +27,7 @@ const NavigationBar = ({setUser}) => {
                 {user !== null ?
                     <>
                         <Link to="/users" className="navbar-item">Users</Link>
-                        <Link to="/follows" className="navbar-item">Follows</Link>
+                        <Link to="/follows" className="navbar-item">My Follows</Link>
                         <Link to="/profile" className="navbar-item">Your Profile</Link>
                     </> : <>
                         <Link to="/create-account" className="navbar-item">Create Account</Link>

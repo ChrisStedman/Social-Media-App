@@ -57,7 +57,6 @@ const generateId = (len) => {
     const decodedToken = jwt.verify(userToken, process.env.SECRET)
     
     if(!userToken || decodedToken.id === undefined){
-        
         return response.status(401).json({ error: "Invalid token" })
       }
 
@@ -96,6 +95,21 @@ const generateId = (len) => {
     posts = posts.concat(newPost)
     response.json(newPost)
   })
+
+  apiRouter.delete('/api/posts/:id', (request, response) => {
+
+    const userToken = getTokenFrom(request)
+    const decodedToken = jwt.verify(userToken, process.env.SECRET)
+
+    if(!userToken || decodedToken.id === undefined){
+      return response.status(401).json({ error: "Invalid token" })
+    }
+
+    const id = Number(request.params.id)
+    posts = posts.filter(post => post.id != id)
+    response.status(204).end()
+
+  })
   
   apiRouter.post('/api/login', async (request, response) => {
     const {username, password} = request.body
@@ -128,7 +142,7 @@ const generateId = (len) => {
     return response.status(401).json({ error: "invalid username or password" })
   })
 
-  apiRouter.post('/api/create-user', async (request, response) => {
+  apiRouter.post('/api/users', async (request, response) => {
     const {username, password} = request.body
 
     if(getUser(username)){
