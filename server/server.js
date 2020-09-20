@@ -8,6 +8,7 @@ const middleware = require('./utils/middleware')
 app.use(cors())
 app.use(express.json())
 app.use(middleware.requestLogger)
+app.use(express.static('build'))
 app.use(apiRouter)
 app.use(middleware.errorMiddleware)
 

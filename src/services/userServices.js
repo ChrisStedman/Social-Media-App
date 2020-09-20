@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3001/api/users'
+const baseURL = '/api/users'
 
 //Return all users
 const getAllUsers = () => {
@@ -52,5 +52,19 @@ const unfollowUser = (username, user) => {
     .then(response => response.data)
 }
 
+const deleteUser = (user) => {
 
-export default {getAllUsers, followUser, unfollowUser, createUser}
+    if(!user){
+        return new Promise(() => null)
+    }
+
+    const config = {
+        headers: {Authorisation: "Bearer " + user.token}
+    }
+   
+    return axios.delete(baseURL + '/'+user.details.id, config)
+    .then(response => response)
+}
+
+
+export default {getAllUsers, followUser, unfollowUser, createUser, deleteUser}

@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 const LoginForm = ({setUser}) => {
     const user = useSelector(state => state.user)
     
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 

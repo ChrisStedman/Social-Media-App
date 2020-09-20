@@ -29,6 +29,7 @@
     "server": "json-server -p 3001 --watch server/sampledata.json",
     "dev": "nodemon server/server.js"
   },
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": "react-app"
   },

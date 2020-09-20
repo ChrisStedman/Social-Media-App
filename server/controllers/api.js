@@ -7,7 +7,6 @@ let users = require('../sampledata.json').users
 
 const apiRouter = express.Router()
 
-
 const generateId = (len) => {
     const maxId = len > 0 ? Math.max(...posts.map(
       p => p.id
@@ -204,6 +203,20 @@ const generateId = (len) => {
       users = users.map(u => u.id === id ? body : u)
       response.status(200).json(body)
        
+    })
+
+    apiRouter.delete('/api/users/:id', (request, response) => {
+
+      const userToken = getTokenFrom(request)
+      const decodedToken = jwt.verify(userToken, process.env.SECRET)
+  
+      if(!userToken || decodedToken.id === undefined){
+        return response.status(401).json({ error: "Invalid token" })
+      }
+  
+      const id = Number(request.params.id)
+      users = users.filter(user => user.id != id)
+      response.status(204).end()
     })
 
 module.exports = apiRouter

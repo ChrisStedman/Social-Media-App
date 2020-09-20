@@ -25,6 +25,8 @@ const Posts = ({ posts, likeHandler }) => {
 
             })
     }
+    if(!users)
+    return <> </>
 
     return (
         <div>

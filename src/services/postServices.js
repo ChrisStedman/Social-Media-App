@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = 'http://localhost:3001/api/posts'
+const baseURL = '/api/posts'
 
 //Return All posts
 const getAllPosts = () => {

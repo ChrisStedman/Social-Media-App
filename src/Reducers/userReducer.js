@@ -5,9 +5,10 @@ const userReducer = (state = [], action) => {
       case 'NEW_USER':
         return [...state, action.data]  
       case 'UPDATE_USER':
-        const userID = action.data.id
-        
-        return state.map(u => u.id === userID ? action.data : u)
+        const userID = action.data.id     
+        return state.map(user => user.id === userID ? action.data : user)
+      case 'DELETE_USER':
+          return state.filter(user => user.id !== action.data)
       default:
         return state
     }
@@ -33,6 +34,13 @@ const userReducer = (state = [], action) => {
     return {
       type: "UPDATE_USER",
       data: user
+    }
+  }
+
+  export const removeUser = (id) => {
+    return {
+      type: "DELETE_USER",
+      data : id
     }
   }
 

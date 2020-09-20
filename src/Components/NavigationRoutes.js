@@ -11,7 +11,7 @@ import Search from './Views/Search'
 import { useSelector } from 'react-redux';
 
 
-const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
+const NavigationRoutes = ({ likePost, setUser, addUser, addPost, deleteUser }) => {
     const user = useSelector(state => state.user)
 
     return (
@@ -22,7 +22,7 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
             </Route>
 
             <Route path="/users/:username">
-                <User likeHandler={likePost} addPost={addPost}/>
+                <User likeHandler={likePost} addPost={addPost} deleteUser={deleteUser}/>
             </Route>
 
             <Route path="/users">

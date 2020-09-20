@@ -13,8 +13,8 @@ import {
 
 import {useDispatch, useSelector} from 'react-redux'
 import {initialisePosts, createPost, toggleLikes} from '../Reducers/postReducer'
-import {initialiseUsers, createUser} from '../Reducers/userReducer'
-import {userLogin} from '../Reducers/currentUserReducer'
+import {initialiseUsers, createUser, removeUser} from '../Reducers/userReducer'
+import {setUserLogin} from '../Reducers/currentUserReducer'
 import {initialiseFilteredPosts} from '../Reducers/filterPostReducer'
 
 const App = () => {
@@ -61,9 +61,6 @@ const App = () => {
                       post.likes.concat(user.details.username) : 
                       post.likes.filter(u => u !== user.details.username)
 
-    console.log("Includes: ", post.likes.includes(user.details.username) )
-    console.log("New likes", newLikes)
-
       const newPost = {
         ...post,
         likes: newLikes
@@ -79,11 +76,20 @@ const App = () => {
 
       )
     }
-  
 
-  const setUser = (user) => dispatch(userLogin(user))
+  const setUser = (user) => dispatch(setUserLogin(user))
 
   const addUser = (user) => dispatch(createUser(user))
+
+  const deleteUser = () => {
+    if(window.confirm("Are you sure? This will permanently delete your account")){
+    userServices.deleteUser(user)
+    .then(resp => {
+      dispatch(removeUser(user))
+      dispatch(setUser(null))
+    })
+  }
+  }
   
 
   //Main body of webPage
@@ -91,7 +97,7 @@ const App = () => {
     <Router>
       <NavigationBar setUser={setUser}/>
       <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser} 
-      addPost={addPost} />
+      addPost={addPost} deleteUser={deleteUser}/>
     </Router>
   )
 }

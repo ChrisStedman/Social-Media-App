@@ -8,7 +8,6 @@ import {userPosts} from '../../Reducers/filterPostReducer'
 const Search = ({likeHandler}) => {
     const initialText = useParams().query
   
-    
     const posts = useSelector(state => state.posts)
     const [searchText, setSearchText] = useState(initialText ? initialText : "")
 
@@ -28,14 +27,10 @@ const Search = ({likeHandler}) => {
                         className="input"
          />
 
-         
-
         </form>
         <Posts posts={selectedPosts} likeHandler={likeHandler} />
         </div>
     )
-    
-
 }
 
 export default Search
