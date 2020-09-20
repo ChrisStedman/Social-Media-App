@@ -27,7 +27,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p 3001 --watch server/sampledata.json",
-    "dev": "nodemon server/server.js"
+    "dev": "nodemon server/server.js",
+    "build:ui": "rm -rf build && npm run build",
+    "deploy": "git push heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m && npm run deploy",
+    "log:prod": "heroku logs --tail"
+
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
