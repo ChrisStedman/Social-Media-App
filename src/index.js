@@ -7,12 +7,14 @@ import {Provider} from 'react-redux'
 import postReducer from './Reducers/postReducer'
 import userReducer from './Reducers/userReducer'
 import currentUserReducer from './Reducers/currentUserReducer'
+import filterPostReducer from './Reducers/filterPostReducer'
 
 
 const reducers = combineReducers({
   posts : postReducer,
   users : userReducer,
-  user : currentUserReducer
+  user : currentUserReducer,
+  filter : filterPostReducer
 })
 
 const store = createStore(reducers)

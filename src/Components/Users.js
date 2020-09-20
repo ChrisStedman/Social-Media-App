@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Follow from './Follow'
@@ -7,23 +7,34 @@ import Follow from './Follow'
 //Pass each user to DisplayUser for display
 const Users = () => {
     const users = useSelector(state => state.users)
+    const user = useSelector(state => state.user)
+
+    if (!user)
+        return <Redirect to="/" />
 
     return (
-        <div className="columns is-multiline is-centered">
-            {users.map(u => {
-                return (<DisplayUser key={u.id} user={u} />)
-            })}
+        <div>
+            <div className="field mt-5 has-text-centered">
+                <div className="title">All Users</div>
+            </div>
+            <div className="columns is-multiline is-centered mt-2">
+                {users.map(u => {
+                    return (<DisplayUser key={u.id} user={u} />)
+                })}
+            </div>
         </div>
     )
 }
 
 //Take user as parameter and display
-const DisplayUser = ({ user }) => {
-    const {username, avatar, follows} = user
+export const DisplayUser = ({ user }) => {
+    const { username, avatar, follows } = user
     return (
-       
-            <div className="column is-narrow has-text-centered box mr-5 user-image">
-            
+
+
+
+        <div className="column is-narrow has-text-centered box mr-5 user-image">
+
             <Link to={`/users/${username}`}>
                 <figure >
                     <img src={avatar} alt={`${username} avatar`} />
@@ -32,8 +43,9 @@ const DisplayUser = ({ user }) => {
             </Link>
             <p><strong>Following {follows.length}</strong></p>
             <Follow username={username} addStyle="is-small is-fullwidth" />
-            </div>
-        
+        </div>
+
+
     )
 }
 

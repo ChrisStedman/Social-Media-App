@@ -4,10 +4,8 @@ import Button from './Button'
 
 const Likes = ({currentUser, post, likeHandler}) => {
     const [showLikes, setShowLikes] = useState(false)
-    
     const {likes} = post
  
-
     if(!currentUser)
     return <> </>
 

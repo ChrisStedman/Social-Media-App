@@ -23,10 +23,13 @@ const ProcessText = ({content}) => {
     //Utilise react-string-replace to replace all hashtags with bold text
     let hashRegex = new RegExp('#(\\w+)', 'g')
     content = reactStringReplace(content, hashRegex, (match, i) => (
-        <strong key={match+i}>#{match}</strong>
+      <Link key={match + i} to={`/search/${match}`}>
+        <strong>#{match}</strong>
+        </Link>
       ));
  
     return <p>{content}</p>
 }
+
 
 export default ProcessText

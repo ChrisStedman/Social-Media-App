@@ -4,14 +4,10 @@ const postReducer = (state = [], action) => {
           return action.data
       case 'NEW_POST':
         return [action.data, ...state]
-      case 'UPDATE_LIKES': {
+      case 'TOGGLE_LIKES': {
         const id = action.data.id
-        const productToChange = state.find(p => p.id === id)
-        const updatedProduct = {
-          ...productToChange,
-          likes : [action.data.user, ...productToChange.likes]
-        }
-        return state.map(post => post.id === id ? updatedProduct : post)
+        
+        return state.map(post => post.id === id ? action.data : post)
       }
       case 'DELETE_POST':
         return state.filter(post => post.id !== action.data)
@@ -37,13 +33,10 @@ const postReducer = (state = [], action) => {
   }
   
   //Add likes to post
-  export const addLikes = (id, user) => {
+  export const toggleLikes = (post) => {
     return {
-      type: "UPDATE_LIKES",
-      data : {
-        id : id,
-        user : user
-      }
+      type: "TOGGLE_LIKES",
+      data : post
     }
   }
 

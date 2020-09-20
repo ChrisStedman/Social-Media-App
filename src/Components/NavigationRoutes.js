@@ -7,11 +7,12 @@ import Home from './Views/Home'
 import CreateUser from './Views/CreateUser'
 import Explore from './Views/Explore'
 import MyFollows from './Views/MyFollows'
+import Search from './Views/Search'
 import { useSelector } from 'react-redux';
+
 
 const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
     const user = useSelector(state => state.user)
-   
 
     return (
         <Switch>
@@ -29,7 +30,16 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost }) => {
             </Route>
 
             <Route path="/follows">
-                <MyFollows />
+                <MyFollows likeHandler={likePost}/>
+            </Route>
+
+            <Route path="/search/:query">
+                <Search likeHandler={likePost}/>
+            </Route>
+
+
+            <Route path="/search">
+                <Search likeHandler={likePost}/>
             </Route>
 
             <Route path="/profile">

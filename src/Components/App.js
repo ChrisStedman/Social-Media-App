@@ -12,9 +12,10 @@ import {
 } from 'react-router-dom'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {initialisePosts, createPost, addLikes} from '../Reducers/postReducer'
+import {initialisePosts, createPost, toggleLikes} from '../Reducers/postReducer'
 import {initialiseUsers, createUser} from '../Reducers/userReducer'
 import {userLogin} from '../Reducers/currentUserReducer'
+import {initialiseFilteredPosts} from '../Reducers/filterPostReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -40,6 +41,7 @@ const App = () => {
         new Date(post2.timestamp) - new Date(post1.timestamp)
           )
         dispatch(initialisePosts(posts))
+        dispatch(initialiseFilteredPosts(posts))
       })
   }, [])
 
@@ -55,20 +57,29 @@ const App = () => {
 
   /////////////////////////////////////////////Implement better check of user logged in
   const likePost = (post) => {
-    
-    if (user && !post.likes.includes(user.details.username)) {
+    const newLikes = !post.likes.includes(user.details.username) ? 
+                      post.likes.concat(user.details.username) : 
+                      post.likes.filter(u => u !== user.details.username)
+
+    console.log("Includes: ", post.likes.includes(user.details.username) )
+    console.log("New likes", newLikes)
+
       const newPost = {
         ...post,
-        likes: post.likes.concat(user.details.username)
-      }
+        likes: newLikes
+    }
 
       postServices.updatePost(newPost, user)
       .then(post => {
-        dispatch(addLikes(post.id, user.details.username))
+        dispatch(toggleLikes(post))
+        }
+      ).catch( error => {
+
       }
+
       )
     }
-  }
+  
 
   const setUser = (user) => dispatch(userLogin(user))
 

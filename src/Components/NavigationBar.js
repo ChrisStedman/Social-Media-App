@@ -20,9 +20,10 @@ const NavigationBar = ({setUser}) => {
         </div>
 
         <div className={`navbar-menu ${isActive ? "is-active has-text-centered" : ""}`}>
-            <div className="navbar-start">
+            <div className="navbar-start is-half">
                 <Link to="/" className="navbar-item">Home</Link>
                 <Link to="/explore" className="navbar-item">Explore</Link>
+                <Link to="/search" className="navbar-item">Search</Link>
 
                 {user !== null ?
                     <>
