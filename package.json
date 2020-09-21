@@ -34,7 +34,7 @@
     "log:prod": "heroku logs --tail"
 
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3002",
   "eslintConfig": {
     "extends": "react-app"
   },

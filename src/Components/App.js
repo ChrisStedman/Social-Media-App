@@ -94,11 +94,26 @@ const App = () => {
 
   //Main body of webPage
   return (
+    <>
     <Router>
       <NavigationBar setUser={setUser}/>
       <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser} 
       addPost={addPost} deleteUser={deleteUser}/>
     </Router>
+
+<footer className="footer" id="background-img">
+  <div className="has-text-centered is-transparent">
+  <p>
+   <a href="/#" className="button is-small is-light">Top of page</a>
+   <div className="field mt-3">
+   <strong>About Us</strong>
+      <p>A truly free social media platform - No data collection guaranteed!</p>
+      
+   </div>
+  </p>
+</div>
+</footer>
+</>
   )
 }
 

@@ -6,20 +6,22 @@ import Button from '../Button'
 import { userPosts } from '../../Reducers/filterPostReducer'
 
 const MyFollows = ({ likeHandler }) => {
+   
     const dispatch = useDispatch()
     const user = useSelector(store => store.user)
     const posts = useSelector(store => store.posts)
     const filter = useSelector(store => store.filter)
     const [selectedUsername, setSelectedUsername] = useState([])
     const [selectMentions, setSelectMentions] = useState(false)
+    console.log("Inside Follows", filter)
 
     if (!user)
         return <Redirect to="/" />
 
     const { username, avatar, follows } = user.details
+   
 
     const filterPosts = (filter) => {
-
         dispatch(userPosts(filter))
         setSelectedUsername(filter)
         if (selectMentions) {
@@ -36,7 +38,7 @@ const MyFollows = ({ likeHandler }) => {
     if (selectMentions) {
         selectedPosts = posts.filter(p => p.content.includes("@" + user.details.username))
     } else {
-        selectedPosts = filter === null ?
+        selectedPosts = !filter ?
             filterPosts(follows) : posts.filter(p => filter.includes(p.user))
     }
 

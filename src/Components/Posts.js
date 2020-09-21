@@ -25,13 +25,15 @@ const Posts = ({ posts, likeHandler }) => {
 
             })
     }
-    if(!users)
+    if(!users || users.length === 0)
     return <> </>
-
+    
     return (
         <div>
             {postCopy.map(post => {
-
+                console.log("Inside Posts -----")
+                console.log("post:", post)
+                console.log("users:", users)
                 //Store user avatar if users defined, else null - Prevent errors if user not set
                 let userAvatar = users ? users.filter(u => u.username === post.user)[0].avatar : null
 
@@ -45,8 +47,8 @@ const Posts = ({ posts, likeHandler }) => {
             })}
             {
                 //If limit less than number of total posts, display a see-more button
-                limit < posts.length ? <Button eventHandler={() =>
-                    setLimit(limit + 10)} action="See more... " addStyle="is-link is-fullwidth mx-2 " /> : <></>}
+                limit < posts.length ? <div className="column is-8 is-offset-2"> <Button eventHandler={() =>
+                    setLimit(limit + 10)} action="See more... " addStyle="is-link is-fullwidth mr-6" /> </div>: <></>}
         </div>
     )
 }

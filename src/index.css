@@ -21,8 +21,39 @@ code {
   .sidebar {
 
     position: fixed;
-  
-  
   }
 }
+
+.footer {
+  background-color: rgb(54, 54, 54);
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 25px
+}
+
+footer strong{
+  color: white;
+}
+
+#background-img {
+  background-image: url('https://pixabay.com/get/57e5d5474c57af14f6da8c7dda353678153fd8ec5650774d_1280.png');
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#see-through {
+  background-color: rgba(0,0,0,0);
+  color: white;
+}
+
+#white-text h1, #white-text h2{
+  color: rgba(255,255,255,0.8)
+}
+
+#logo:hover {
+  background-color: rgb(41, 41, 41);
+}
+
+
 

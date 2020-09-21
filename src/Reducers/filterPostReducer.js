@@ -4,6 +4,8 @@ const filterPostReducer = (state = null, action) => {
           return state
       case 'USER_POSTS':
         return action.data
+    case 'SEARCH':
+        return action.data
 
       default:
         return state
@@ -18,11 +20,18 @@ const filterPostReducer = (state = null, action) => {
       }
   }
 
-  //Add new post to store
+  //Set filter by user posts
   export const userPosts = (usernames) => {
     return {
       type: "USER_POSTS",
       data : usernames
+    }
+  }
+
+  export const setSearch = (search) => {
+    return {
+      type: "SEARCH",
+      data : search
     }
   }
 

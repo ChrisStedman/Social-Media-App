@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import Follow from './Follow'
 
 const UserDetails = ({user, userAvatar})=> {
-    console.log("user details: ",user)
+   
     return(
         <div className="media-left has-text-centered">
                     <Link to={`/users/${user}`} >
