@@ -31,9 +31,6 @@ const Posts = ({ posts, likeHandler }) => {
     return (
         <div>
             {postCopy.map(post => {
-                console.log("Inside Posts -----")
-                console.log("post:", post)
-                console.log("users:", users)
                 //Store user avatar if users defined, else null - Prevent errors if user not set
                 let userAvatar = users ? users.filter(u => u.username === post.user)[0].avatar : null
 

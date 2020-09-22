@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import { useParams} from 'react-router-dom'
 import Posts from '../Posts'
-import Button from '../Button'
 import {setSearch} from '../../Reducers/filterPostReducer'
 
 const Search = ({likeHandler}) => {

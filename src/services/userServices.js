@@ -3,68 +3,70 @@ import axios from 'axios'
 const baseURL = '/api/users'
 
 //Return all users
-const getAllUsers = () => {
-    return axios.get(baseURL)
-    .then(response => response.data)
+const getAllUsers = async () => {
+    const response = await axios.get(baseURL)
+    return response.data
 }
 
 //Create new user
-const createUser = (username, password) => {
-    return axios.post(baseURL, {username, password})
-    .then(response => response.data)
+const createUser = async (username, password) => {
+    const response = await axios.post(baseURL, { username, password })
+    return response.data
 }
 
 //Update user - Add username param to follows list
-const followUser = (username, user) => {
-    if(!user){
+const followUser = async (username, user) => {
+    if (!user) {
         return new Promise(() => null)
     }
 
     const config = {
-        headers: {Authorisation: "Bearer " + user.token}
+        headers: { Authorisation: "Bearer " + user.token }
     }
 
     const updatedUser = {
         ...user.details,
         follows: [...user.details.follows, username]
     }
-    
-    return axios.put(baseURL + "/" + user.details.id, updatedUser, config)
-    .then(response => response.data)
+
+    const response = await axios.put(baseURL + "/" + user.details.id, updatedUser, config)
+    return response.data
 }
 
-//Update user - Remove username param to follows list
-const unfollowUser = (username, user) => {
-    if(!user){
+//Update user - Remove username param from follows list
+const unfollowUser = async (username, user) => {
+
+    if (!user) {
         return new Promise(() => null)
     }
 
     const config = {
-        headers: {Authorisation: "Bearer " + user.token}
+        headers: { Authorisation: "Bearer " + user.token }
     }
 
     const updatedUser = {
         ...user.details,
         follows: user.details.follows.filter(u => u !== username)
     }
-    
-    return axios.put(baseURL + "/" + user.details.id, updatedUser, config)
-    .then(response => response.data)
+
+    const response = await axios.put(baseURL + "/" + user.details.id, updatedUser, config)
+    return response.data
 }
 
-const deleteUser = (user) => {
+//Delete user
+const deleteUser = async (user) => {
 
-    if(!user){
+    if (!user) {
         return new Promise(() => null)
     }
 
     const config = {
-        headers: {Authorisation: "Bearer " + user.token}
+        headers: { Authorisation: "Bearer " + user.token }
     }
-   
-    return axios.delete(baseURL + '/'+user.details.id, config)
-    .then(response => response)
+
+    const response = await axios.delete(baseURL + '/' + user.details.id, config)
+    return response.data
 }
 
 
-export default {getAllUsers, followUser, unfollowUser, createUser, deleteUser}
+export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser }

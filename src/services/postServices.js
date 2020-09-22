@@ -2,28 +2,28 @@ import axios from 'axios'
 const baseURL = '/api/posts'
 
 //Return All posts
-const getAllPosts = () => {
-    return axios.get(baseURL)
-    .then(response => response.data)
+const getAllPosts = async () => {
+    const response = await axios.get(baseURL)
+    return response.data
 }
 
 //Create new post
-const createPost = (newPost, user) => {
-    
+const createPost = async (newPost, user) => {
+
     if(!user){
         return new Promise(() => null)
     }
-
+    
     const config = {
         headers: {Authorisation: "Bearer " + user.token}
     }
 
-    return axios.post(baseURL, newPost, config)
-    .then(response => response.data)
+    const response = await axios.post(baseURL, newPost, config)
+    return response.data    
 }
 
 //Update post - General
-const updatePost = (updatedPost, user) => {
+const updatePost = async (updatedPost, user) => {
 
     if(!user){
         return new Promise(() => null)
@@ -33,11 +33,12 @@ const updatePost = (updatedPost, user) => {
         headers: {Authorisation: "Bearer " + user.token}
     }
 
-    return axios.put(baseURL + "/" + updatedPost.id, updatedPost, config)
-    .then(response => response.data)
+    const response = await axios.put(baseURL + "/" + updatedPost.id, updatedPost, config)
+    return response.data
 }
 
-const deletePost =  (postID, user) => {
+//Delete post
+const deletePost =  async (postID, user) => {
 
     if(!user){
         return new Promise(() => null)
@@ -47,8 +48,8 @@ const deletePost =  (postID, user) => {
         headers: {Authorisation: "Bearer " + user.token}
     }
    
-    return axios.delete(baseURL + '/'+postID, config)
-    .then(response => response)
+    const response = await axios.delete(baseURL + '/'+postID, config)
+    return response.data
 }
 
 export default {getAllPosts, createPost, updatePost, deletePost}

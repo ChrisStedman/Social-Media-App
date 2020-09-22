@@ -1,0 +1,15 @@
+PUT http://localhost:3001/api/posts/5f6961154c0339c8dcd127
+Content-Type: application/json
+Authorisation: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwidXNlcm5hbWUiOiJCb2JhbG9vYmEiLCJpYXQiOjE2MDAyNjA4MDJ9.UCQbvdpcANdGCj1kjT0Ldr2M1tWfvA1wLK6b774zaRU
+     
+     {
+        "likes": [
+                "Mandible",
+                "Bobalooba",
+                "Bean"
+                ],
+        "user": "Bean",
+        "timestamp": "2020-07-15 07:25:28",
+        "content": "@Jimbulator Bean ngr ux urynauydyw inwjh oyafoji qpmia alitype yhtleeft viuhziw opya #ailbk #ynv xhejaa #gqxojaera #ram qajix ceomy ndbyejv",
+        "id": "5f6961154c034339c8dcd127"
+}

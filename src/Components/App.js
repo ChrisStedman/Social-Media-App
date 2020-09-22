@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 
 import postServices from '../services/postServices'
@@ -20,21 +20,25 @@ import {initialiseFilteredPosts} from '../Reducers/filterPostReducer'
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const [updateData, setUpdateData] = useState(true)
  
 /////////////////////////////////////////////////////////////////Improve useEffect with redux-thunk? In video 2
   //Load user data from server
   
   useEffect( () => {
     
+    if(updateData){
     userServices.getAllUsers()
       .then(users => {
         dispatch(initialiseUsers(users))
     
       })
-  }, [])
+    }
+  }, [updateData])
 
   //Load post data from server - Store in date order
   useEffect(() => {
+    if(updateData){
     postServices.getAllPosts()
       .then(posts => {
         posts.sort((post1, post2) =>
@@ -43,7 +47,27 @@ const App = () => {
         dispatch(initialisePosts(posts))
         dispatch(initialiseFilteredPosts(posts))
       })
-  }, [])
+    }
+      updateDataCheck()
+  }, [updateData])
+
+  const updateDataCheck = () => {
+    if(updateData){
+      setUpdateData(false)
+      setTimeout(() => {setUpdateData(true); console.log("Getting Data")}, 30000)
+    }
+  }
+
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if(loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+    }
+  },[])
+
+  
 
   //Take new post data from PostForm, create POST request
   //Adds post to store
@@ -85,6 +109,7 @@ const App = () => {
     if(window.confirm("Are you sure? This will permanently delete your account")){
     userServices.deleteUser(user)
     .then(resp => {
+      window.localStorage.removeItem('loggedUser')
       dispatch(removeUser(user))
       dispatch(setUser(null))
     })
@@ -103,14 +128,14 @@ const App = () => {
 
 <footer className="footer" id="background-img">
   <div className="has-text-centered is-transparent">
-  <p>
+ 
    <a href="/#" className="button is-small is-light">Top of page</a>
    <div className="field mt-3">
    <strong>About Us</strong>
       <p>A truly free social media platform - No data collection guaranteed!</p>
       
    </div>
-  </p>
+  
 </div>
 </footer>
 </>

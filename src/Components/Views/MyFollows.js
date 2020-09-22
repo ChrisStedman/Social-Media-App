@@ -43,7 +43,7 @@ const MyFollows = ({ likeHandler }) => {
     }
 
     return (
-        <div className="columns">
+        <div className="columns page-min-height">
             <div className=" column card is-3 has-text-centered is-dektop sidebar">
 
                 <div className="card-content">

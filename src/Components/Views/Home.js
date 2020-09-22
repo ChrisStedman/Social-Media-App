@@ -13,13 +13,15 @@ const Home = ({ addPost, likePost }) => {
 
     return (
         <div>
-            <div className="has-text-centered">
-            <div className="title">Recent Posts</div>
-            </div>
+            
             {user ? <PostForm addPost={addPost} user={user} /> :
                 <> </>
             }
+            <div className="field">
+                
+           
             <Posts posts={posts} likeHandler={likePost} user={user} />
+            </div>
         </div>
     )
 }

@@ -7,7 +7,7 @@ const Hero = () => {
             <div className="container" id="white-text">
                 <h1 className="title">Welcome to CyChat</h1>
 
-                <h2 class="subtitle">Connect Securely</h2>
+                <h2 className="subtitle">Connect Securely</h2>
 
             </div>
         </div>

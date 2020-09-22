@@ -17,7 +17,7 @@ const CreateUserForm = ({ setUser, addUser }) => {
             ////////////////////////////////////////////////////////////////Need better error checking
             userServices.createUser(username, password)
                 .then(data => {
-
+                    window.localStorage.setItem('loggedUser', JSON.stringify(data))
                     setUser(data)
                     addUser(data.details)
                     setUsername("")
@@ -66,7 +66,7 @@ const CreateUserForm = ({ setUser, addUser }) => {
                     />
                     </div>
                     <div className="field has-text-centered">
-                    <input type="submit" value="Login" className="button is-dark is-fullwidth" />
+                    <input type="submit" value="Create Account" className="button is-dark is-fullwidth" />
                     </div>
 
                 </form>

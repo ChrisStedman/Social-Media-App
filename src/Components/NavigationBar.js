@@ -12,11 +12,12 @@ const NavigationBar = ({ setUser }) => {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <div id="background-img">
+        <div className="field" id="background-img">
             <nav className="navbar is-dark" role="navigation" aria-label="main navigation" id="see-through">
-            <Link class="navbar-item" to="/" id="logo">
-                <img src="https://pixabay.com/get/54e1dc414c53ab14f1dc8460da29317e1539d7e2525871_640.png" width="28" height="28" />
-                    </Link>
+                <div className="navbar-brand">
+                <a className="navbar-item" href="/" id="logo">
+                    <img src="/robot_logo.png" alt="logo" width="28" height="28" />
+                </a>
                 <div className={`navbar-burger burger ${isActive ? "is-active" : ""}`}>
                     <p onClick={() => setIsActive(!isActive)} role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                         <span aria-hidden="true"></span>
@@ -24,7 +25,7 @@ const NavigationBar = ({ setUser }) => {
                         <span aria-hidden="true"></span>
                     </p>
                 </div>
-
+                </div>
                 <div className={`navbar-menu ${isActive ? "is-active has-text-centered" : ""}`}>
                     <div className="navbar-start is-half" id="white-text">
                         <Link to="/" className="navbar-item">Home</Link>

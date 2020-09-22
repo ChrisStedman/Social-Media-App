@@ -13,8 +13,8 @@ const Users = () => {
         return <Redirect to="/" />
 
     return (
-        <div>
-            <div className="field mt-5 has-text-centered">
+        <div className="page-min-height">
+            <div className="field mt-5 has-text-centered ">
                 <div className="title">All Users</div>
             </div>
             <div className="columns is-multiline is-centered mt-2">

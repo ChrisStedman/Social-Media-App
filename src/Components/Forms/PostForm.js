@@ -26,7 +26,7 @@ const PostForm = ({ addPost, user }) => {
     return (
         <div>
 
-            <div className="column is-half is-offset-one-quarter has-text-centered">
+            <div className="column is-5 is-offset-3 has-text-centered">
                 <div className="title">New Post</div>
                 <article className="media">
                     <div className="media-left">
