@@ -19,6 +19,7 @@ const followUser = async (username, user) => {
     if (!user) {
         return new Promise(() => null)
     }
+    console.log("User id", user.details.id)
 
     const config = {
         headers: { Authorisation: "Bearer " + user.token }

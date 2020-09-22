@@ -25,15 +25,23 @@ const Posts = ({ posts, likeHandler }) => {
 
             })
     }
-    if(!users || users.length === 0)
-    return <> </>
+  
     
     return (
         <div>
             {postCopy.map(post => {
-                //Store user avatar if users defined, else null - Prevent errors if user not set
-                let userAvatar = users ? users.filter(u => u.username === post.user)[0].avatar : null
-
+             
+                //Store user avatar 
+                let userAvatar = users.filter(u => u.username === post.user)
+              
+                if(userAvatar.length === 0){
+                    console.log("No avatar", userAvatar)
+                    userAvatar = "robot_logo.png"
+                } else {
+                    console.log("Avatar Found", userAvatar)
+                    userAvatar = userAvatar[0].avatar
+                }
+                
                 //Display Post - Send post data and user Avatar
                 return (
                     <DisplayPosts key={post.id} post={post}
@@ -61,7 +69,7 @@ const DisplayPosts = ({ post, userAvatar, likeHandler, currentUser, deletePostHa
         <div className="box mx-5 is-mobile">
             <article className="media">
                 <UserDetails user={user} userAvatar={userAvatar} />
-                <div className="media-content">
+                <div className="media-content ml-3">
                     <div className="content">
                         <small>{date} - {time}</small>
                         <ProcessText content={content} />

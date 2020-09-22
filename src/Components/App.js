@@ -31,7 +31,7 @@ const App = () => {
     userServices.getAllUsers()
       .then(users => {
         dispatch(initialiseUsers(users))
-    
+      
       })
     }
   }, [updateData])
