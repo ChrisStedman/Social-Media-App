@@ -13,12 +13,15 @@ const filterPostReducer = (state = null, action) => {
   }
 
   //Create initial post store
-  export const initialiseFilteredPosts = (posts) => {
-      return {
+  export const initialiseFilteredPosts = () => {
+
+      return dispatch => {
+        dispatch({
           type: 'ALL',
-          data: posts
-      }
+          data: null
+      })
   }
+}
 
   //Set filter by user posts
   export const userPosts = (usernames) => {

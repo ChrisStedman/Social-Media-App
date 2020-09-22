@@ -13,7 +13,6 @@ const MyFollows = ({ likeHandler }) => {
     const filter = useSelector(store => store.filter)
     const [selectedUsername, setSelectedUsername] = useState([])
     const [selectMentions, setSelectMentions] = useState(false)
-    console.log("Inside Follows", filter)
 
     if (!user)
         return <Redirect to="/" />

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Button from './Button'
 import ProcessText from './ProcessText'
 import { useSelector, useDispatch } from 'react-redux'
-import postServices from '../services/postServices'
 import { deletePostID } from '../Reducers/postReducer'
 import UserDetails from './UserDetails'
 import Likes from './Likes'
@@ -18,12 +17,7 @@ const Posts = ({ posts, likeHandler }) => {
 
     //Initiate DELETE request and updated store
     const deletePost = (postID) => {
-        postServices.deletePost(postID, user)
-            .then(post => {
-                dispatch(deletePostID(postID))
-            }).catch(error => {
-
-            })
+        dispatch(deletePostID(postID, user))
     }
   
     
@@ -35,10 +29,8 @@ const Posts = ({ posts, likeHandler }) => {
                 let userAvatar = users.filter(u => u.username === post.user)
               
                 if(userAvatar.length === 0){
-                    console.log("No avatar", userAvatar)
                     userAvatar = "robot_logo.png"
                 } else {
-                    console.log("Avatar Found", userAvatar)
                     userAvatar = userAvatar[0].avatar
                 }
                 

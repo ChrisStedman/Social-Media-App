@@ -1,3 +1,5 @@
+import postServices from '../services/postServices'
+
 const postReducer = (state = [], action) => {
     switch (action.type){
       case 'INIT_POSTS':
@@ -17,33 +19,49 @@ const postReducer = (state = [], action) => {
   }
 
   //Create initial post store
-  export const initialisePosts = (posts) => {
-      return {
+  export const initialisePosts = () => {
+      return async dispatch => {
+        const posts = await postServices.getAllPosts()
+        const sortedPosts = posts.sort((post1, post2) =>
+        new Date(post2.timestamp) - new Date(post1.timestamp)
+          )
+        dispatch({ 
           type: 'INIT_POSTS',
-          data: posts
-      }
+          data: sortedPosts
+      })
   }
+}
 
   //Add new post to store
-  export const createPost = (post) => {
-    return {
-      type: "NEW_POST",
-      data : post
+  export const createPost = (post, user) => {
+    return async dispatch => {
+      const newPost = await postServices.createPost(post, user)
+      dispatch({
+        type: "NEW_POST",
+        data : newPost
+      })
     }
   }
   
   //Add likes to post
-  export const toggleLikes = (post) => {
-    return {
-      type: "TOGGLE_LIKES",
-      data : post
+  export const toggleLikes = (post, user) => {
+    return async dispatch => {
+      const updatedPost = await postServices.updatePost(post, user)
+      dispatch({
+        type: "TOGGLE_LIKES",
+        data : updatedPost
+      })
     }
   }
 
-  export const deletePostID = (id) => {
-    return {
-      type: "DELETE_POST",
-      data : id
+
+  export const deletePostID = (id, user) => {
+    return async dispatch => {
+      await postServices.deletePost(id, user)
+      dispatch({
+        type: "DELETE_POST",
+        data : id
+      })
     }
   }
 

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import './App.css';
 
-import postServices from '../services/postServices'
-import userServices from '../services/userServices'
 
-import NavigationBar from './NavigationBar'
-import NavigationRoutes from './NavigationRoutes'
+import userServices from './services/userServices'
+
+import NavigationBar from './Components/NavigationBar'
+import NavigationRoutes from './Components/NavigationRoutes'
 
 import {
   BrowserRouter as Router,
 } from 'react-router-dom'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {initialisePosts, createPost, toggleLikes} from '../Reducers/postReducer'
-import {initialiseUsers, createUser, removeUser} from '../Reducers/userReducer'
-import {setUserLogin} from '../Reducers/currentUserReducer'
-import {initialiseFilteredPosts} from '../Reducers/filterPostReducer'
+import {initialisePosts, createPost, toggleLikes} from './Reducers/postReducer'
+import {initialiseUsers, createUser, removeUser} from './Reducers/userReducer'
+import {setUserLogin, updateCurrentUser} from './Reducers/currentUserReducer'
+import {initialiseFilteredPosts} from './Reducers/filterPostReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -26,27 +26,16 @@ const App = () => {
   //Load user data from server
   
   useEffect( () => {
-    
     if(updateData){
-    userServices.getAllUsers()
-      .then(users => {
-        dispatch(initialiseUsers(users))
-      
-      })
+          dispatch(initialiseUsers())
     }
   }, [updateData])
 
   //Load post data from server - Store in date order
   useEffect(() => {
     if(updateData){
-    postServices.getAllPosts()
-      .then(posts => {
-        posts.sort((post1, post2) =>
-        new Date(post2.timestamp) - new Date(post1.timestamp)
-          )
-        dispatch(initialisePosts(posts))
-        dispatch(initialiseFilteredPosts(posts))
-      })
+        dispatch(initialisePosts())
+        dispatch(initialiseFilteredPosts())
     }
       updateDataCheck()
   }, [updateData])
@@ -54,7 +43,7 @@ const App = () => {
   const updateDataCheck = () => {
     if(updateData){
       setUpdateData(false)
-      setTimeout(() => {setUpdateData(true); console.log("Getting Data")}, 30000)
+      setTimeout(() => setUpdateData(true), 30000)
     }
   }
 
@@ -63,7 +52,11 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if(loggedUserJSON){
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      userServices.getUser(user.details.id)
+      .then( response => {
+        setUser({token: user.token, details: response})
+      }
+      )
     }
   },[])
 
@@ -72,11 +65,7 @@ const App = () => {
   //Take new post data from PostForm, create POST request
   //Adds post to store
   const addPost = (newPost) => {
-
-    postServices.createPost(newPost, user)
-      .then(post => {
-        dispatch(createPost(post)) 
-      })  
+        dispatch(createPost(newPost, user))  
   }
 
   /////////////////////////////////////////////Implement better check of user logged in
@@ -89,12 +78,9 @@ const App = () => {
         ...post,
         likes: newLikes
     }
-
-      postServices.updatePost(newPost, user)
-      .then(post => {
-        dispatch(toggleLikes(post))
-        }
-      ).catch( error => {
+   
+        dispatch(toggleLikes(newPost, user))  
+      .catch( error => {//////////////////////////////////needed?
 
       }
 

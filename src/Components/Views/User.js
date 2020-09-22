@@ -12,7 +12,8 @@ const User = ({ likeHandler, deleteUser }) => {
     const userPosts = useSelector(state => state.posts.filter(p => p.user === username))
     const userPage = useSelector(state => state.users.find(u => u.username === username))
     const [showFollows, setShowFollows] = useState(false)
-    if (!userPage || !user) {
+
+    if(!user){
         return <Redirect to="/" />
     }
 

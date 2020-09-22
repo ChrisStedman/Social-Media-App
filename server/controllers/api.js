@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Post = require('../models/posts')
 const User = require('../models/users')
+const path = require('path')
 
 const apiRouter = express.Router()
 
@@ -21,6 +22,7 @@ const getTokenFrom = request => {
 apiRouter.get('/', (request, response) => {
   response.send()
 })
+
 
 //Return all posts
 apiRouter.get('/api/posts', (request, response) => {
@@ -131,7 +133,6 @@ apiRouter.post('/api/login', async (request, response) => {
       username: user.username,
       avatar: user.avatar,
       follows: user.follows
-
     }
     const token = jwt.sign(userForToken, process.env.SECRET)
 
@@ -156,6 +157,21 @@ apiRouter.get('/api/users', async (request, response) => {
     })
     
   response.json(strippedUsers)
+})
+
+//Get user with matching ID
+apiRouter.get('/api/users/:id', (request, response) => {
+  User.findById(request.params.id)
+  .then(user => {
+    const strippedUser = {
+      id: user.id,
+      username: user.username,
+      avatar: user.avatar,
+      follows: user.follows
+    }
+    response.json(strippedUser)
+  })
+
 })
 
 //Create new user - Return token
@@ -243,6 +259,14 @@ apiRouter.delete('/api/users/:id', async (request, response) => {
   User.findByIdAndRemove(request.params.id)
   .then(result => {
     response.status(204).end()
+  })
+})
+
+apiRouter.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
   })
 })
 

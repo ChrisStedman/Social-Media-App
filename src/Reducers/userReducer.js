@@ -1,3 +1,5 @@
+import userServices from '../services/userServices'
+
 const userReducer = (state = [], action) => {
     switch (action.type){
       case 'INIT_USERS':
@@ -15,12 +17,15 @@ const userReducer = (state = [], action) => {
   }
 
   //Create initial user store
-  export const initialiseUsers = (users) => {
-      return {
-          type: 'INIT_USERS',
+  export const initialiseUsers = () => {
+    return async dispatch => {
+      const users = await userServices.getAllUsers()
+      dispatch({
+        type: 'INIT_USERS',
           data: users
-      }
+      })
   }
+}
 
   //Add new user to user store
   export const createUser = (user) => {

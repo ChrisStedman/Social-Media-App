@@ -8,6 +8,11 @@ const getAllUsers = async () => {
     return response.data
 }
 
+const getUser = async (userID) => {
+    const response = await axios.get(baseURL+'/'+userID)
+    return response.data
+}
+
 //Create new user
 const createUser = async (username, password) => {
     const response = await axios.post(baseURL, { username, password })
@@ -19,7 +24,7 @@ const followUser = async (username, user) => {
     if (!user) {
         return new Promise(() => null)
     }
-    console.log("User id", user.details.id)
+    console.log("Inside follow user", user.token)
 
     const config = {
         headers: { Authorisation: "Bearer " + user.token }
@@ -70,4 +75,4 @@ const deleteUser = async (user) => {
 }
 
 
-export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser }
+export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser, getUser }
