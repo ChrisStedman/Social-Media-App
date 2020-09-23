@@ -22,7 +22,7 @@ const createPost = async (newPost, user) => {
 }
 
 //Update post - General
-const updatePost = async (updatedPost, user) => {
+const updatePost = async (postID, likes, user) => {
 
     if(!user){
         return new Promise(() => null)
@@ -31,8 +31,8 @@ const updatePost = async (updatedPost, user) => {
     const config = {
         headers: {Authorisation: "Bearer " + user.token}
     }
-
-    const response = await axios.put(baseURL + "/" + updatedPost.id, updatedPost, config)
+    
+    const response = await axios.put(baseURL + "/" + postID, likes, config)
     return response.data
 }
 

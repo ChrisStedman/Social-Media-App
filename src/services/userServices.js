@@ -29,12 +29,9 @@ const followUser = async (username, user) => {
         headers: { Authorisation: "Bearer " + user.token }
     }
 
-    const updatedUser = {
-        ...user.details,
-        follows: [...user.details.follows, username]
-    }
+    const follows = [...user.details.follows, username]
 
-    const response = await axios.put(baseURL + "/" + user.details.id, updatedUser, config)
+    const response = await axios.put(baseURL + "/" + user.details.id, follows, config)
     return response.data
 }
 
@@ -49,12 +46,9 @@ const unfollowUser = async (username, user) => {
         headers: { Authorisation: "Bearer " + user.token }
     }
 
-    const updatedUser = {
-        ...user.details,
-        follows: user.details.follows.filter(u => u !== username)
-    }
+    const follows = user.details.follows.filter(u => u !== username)
 
-    const response = await axios.put(baseURL + "/" + user.details.id, updatedUser, config)
+    const response = await axios.put(baseURL + "/" + user.details.id, follows, config)
     return response.data
 }
 

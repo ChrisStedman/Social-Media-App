@@ -73,11 +73,7 @@ const App = () => {
       post.likes.concat(user.details.username) :
       post.likes.filter(u => u !== user.details.username)
 
-    const newPost = {
-      ...post,
-      likes: newLikes
-    }
-    dispatch(toggleLikes(newPost, user))
+    dispatch(toggleLikes(post.id, newLikes, user))
   }
 
   const setUser = (user) => dispatch(setUserLogin(user))

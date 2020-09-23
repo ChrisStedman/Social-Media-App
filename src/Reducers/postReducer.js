@@ -46,9 +46,9 @@ const postReducer = (state = [], action) => {
   
   //Add likes to post
   //Await response from server then set state
-  export const toggleLikes = (post, user) => {
+  export const toggleLikes = (postID, likes, user) => {
     return async dispatch => {
-      const updatedPost = await postServices.updatePost(post, user)
+      const updatedPost = await postServices.updatePost(postID, likes, user)
       dispatch({
         type: "TOGGLE_LIKES",
         data : updatedPost

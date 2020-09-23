@@ -23,7 +23,6 @@ apiRouter.get('/', (request, response) => {
   response.send()
 })
 
-
 //Return all posts
 apiRouter.get('/api/posts', (request, response) => {
   Post.find({}).then(result => {
@@ -48,9 +47,10 @@ apiRouter.put('/api/posts/:id', (request, response) => {
   if (!userToken || decodedToken.id === undefined) {
     return response.status(401).json({ error: "Invalid token" })
   }
+  const likes = request.body
   
-  //Return post if found - else return not found message
-  Post.findByIdAndUpdate(request.params.id, request.body, {new: true})
+  //Update likes using set query - return new post
+  Post.findByIdAndUpdate(request.params.id, {$set: {likes : likes}}, {new: true})
   .then (
     updatedPost => {
       return response.status(200).json(updatedPost)
@@ -228,14 +228,10 @@ apiRouter.put('/api/users/:id', async (request, response) => {
     return response.status(401).json({ error: "Invalid token" })
   }
 
-  const body = request.body
+  const follows = request.body
 
-  //Find user in database and set follows field to body
-  let updatedUser = await User.findById(request.params.id)
-  updatedUser.follows = body.follows
-
-  //Use updatedUser to replace user in database
-  User.findByIdAndUpdate(request.params.id, updatedUser, {new: true})
+  //Update follows field of user with matching ID and return
+  User.findByIdAndUpdate(request.params.id, {$set: {follows : follows}}, {new: true})
   .then (
     updatedUser => {
       return response.status(200).json(updatedUser)
