@@ -54,14 +54,6 @@ const PostForm = ({ addPost, user }) => {
                 </div> : <> </>
             }
         </div>
-
-
-
-
-
-
-
-
     )
 }
 

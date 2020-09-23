@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     follows: [String],
   })
   
+  //Transform data to rename id field and remove version
   userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
       returnedObject.id = returnedObject._id.toString()

@@ -31,7 +31,7 @@ const followUser = async (username, user) => {
 
     const follows = [...user.details.follows, username]
 
-    const response = await axios.put(baseURL + "/" + user.details.id, follows, config)
+    const response = await axios.put(baseURL + "/" + user.details.id, {fieldName : "follows", data : follows}, config)
     return response.data
 }
 
@@ -48,7 +48,7 @@ const unfollowUser = async (username, user) => {
 
     const follows = user.details.follows.filter(u => u !== username)
 
-    const response = await axios.put(baseURL + "/" + user.details.id, follows, config)
+    const response = await axios.put(baseURL + "/" + user.details.id, {fieldName : "follows", data : follows}, config)
     return response.data
 }
 
@@ -67,4 +67,17 @@ const deleteUser = async (user) => {
     return response.data
 }
 
-export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser, getUser }
+const setAvatar = async (avatar, user) => {
+    if (!user) {
+        return new Promise(() => null)
+    }
+
+    const config = {
+        headers: { Authorisation: "Bearer " + user.token }
+    }
+
+    const response = await axios.put(baseURL + '/' + user.details.id, {fieldName : "avatar", data: avatar}, config)
+    return response.data
+}
+
+export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser, getUser, setAvatar }

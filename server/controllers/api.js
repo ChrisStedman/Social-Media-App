@@ -219,7 +219,7 @@ apiRouter.post('/api/users', async (request, response) => {
   return response.status(200).json({ token, details: strippedUser })
 })
 
-//Update with matching id - Used to set follows
+//Update with matching id - Used to set any field
 apiRouter.put('/api/users/:id', async (request, response) => {
   const userToken = getTokenFrom(request)
   const decodedToken = jwt.verify(userToken, process.env.SECRET)
@@ -228,10 +228,12 @@ apiRouter.put('/api/users/:id', async (request, response) => {
     return response.status(401).json({ error: "Invalid token" })
   }
 
-  const follows = request.body
+  //Extract field to be updated and corresponding data
+  const fieldName = request.body.fieldName
+  const data = request.body.data
 
-  //Update follows field of user with matching ID and return
-  User.findByIdAndUpdate(request.params.id, {$set: {follows : follows}}, {new: true})
+  //Use query to set the specified field with the corresponding data
+  User.findByIdAndUpdate(request.params.id, {$set: {[fieldName] : data}}, {new: true})
   .then (
     updatedUser => {
       return response.status(200).json(updatedUser)
@@ -258,6 +260,7 @@ apiRouter.delete('/api/users/:id', async (request, response) => {
   })
 })
 
+//Wilcard get - If no other route is matched, send route to index.html to load app
 apiRouter.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../../build/index.html'), function(err) {
     if (err) {

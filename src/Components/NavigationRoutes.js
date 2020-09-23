@@ -12,7 +12,7 @@ import Search from './Views/Search'
 import Users from './Users'
 
 //Defines all routes - responsible for passing functions from app to components
-const NavigationRoutes = ({ likePost, setUser, addUser, addPost, deleteUser }) => {
+const NavigationRoutes = ({ likePost, setUser, addUser, addPost, deleteUser, setAvatar }) => {
     const user = useSelector(state => state.user)
 
     return (
@@ -22,7 +22,7 @@ const NavigationRoutes = ({ likePost, setUser, addUser, addPost, deleteUser }) =
             </Route>
 
             <Route path="/users/:username">
-                <User likeHandler={likePost} addPost={addPost} deleteUser={deleteUser} />
+                <User likeHandler={likePost} addPost={addPost} deleteUser={deleteUser} setAvatar={setAvatar}/>
             </Route>
 
             <Route path="/users">

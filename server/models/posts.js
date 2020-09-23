@@ -18,6 +18,7 @@ const postSchema = new mongoose.Schema({
     likes: [String],
   })
   
+  //Transform data to rename id field and remove version
   postSchema.set('toJSON', {
     transform: (document, returnedObject) => {
       returnedObject.id = returnedObject._id.toString()

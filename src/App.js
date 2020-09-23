@@ -11,8 +11,8 @@ import NavigationRoutes from './Components/NavigationRoutes'
 import Footer from './Components/Footer'
 
 import { initialisePosts, createPost, toggleLikes } from './Reducers/postReducer'
-import { initialiseUsers, createUser, removeUser } from './Reducers/userReducer'
-import { setUserLogin } from './Reducers/currentUserReducer'
+import { initialiseUsers, createUser, removeUser, updateUser } from './Reducers/userReducer'
+import { setUserLogin, updateCurrentUser } from './Reducers/currentUserReducer'
 import { initialiseFilteredPosts } from './Reducers/filterPostReducer'
 
 const App = () => {
@@ -89,12 +89,20 @@ const App = () => {
     }
   }
 
+  const setAvatar = (avatar) => {
+    userServices.setAvatar(avatar, user)
+    .then(updatedUser => {
+      dispatch(updateCurrentUser(updatedUser))
+      dispatch(updateUser(updatedUser))
+    })
+  }
+
   return (
     <>
       <Router>
         <NavigationBar setUser={setUser} />
         <NavigationRoutes likePost={likePost} setUser={setUser} addUser={addUser}
-          addPost={addPost} deleteUser={deleteUser} />
+          addPost={addPost} deleteUser={deleteUser} setAvatar={setAvatar}/>
       </Router>
       <Footer />
     </>

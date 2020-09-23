@@ -5,8 +5,9 @@ import Posts from '../Posts'
 import Follow from '../Follow'
 import { useSelector } from 'react-redux'
 import Button from '../Button'
+import MyProfileOptions from '../MyProfileOptions'
 
-const User = ({ likeHandler, deleteUser }) => {
+const User = ({ likeHandler, deleteUser, setAvatar }) => {
     const username = useParams().username
     const user = useSelector(state => state.user)
     const userPosts = useSelector(state => state.posts.filter(p => p.user === username))
@@ -59,12 +60,13 @@ const User = ({ likeHandler, deleteUser }) => {
                     <div className="control">
                         <Follow username={username} addStyle="is-fullwidth" />
                     </div>
-                    {user.details.username === username ?
-                        <Button eventHandler={deleteUser}
-                            action="Delete Account" addStyle={'is-danger'}>
-                        </Button>
-                        :
-                        <> </>
+
+                    {
+                        //If username matches currently logged in user
+                        user.details.username === username ?
+                            <MyProfileOptions deleteUser={deleteUser} setAvatar={setAvatar} user={user} />
+                            :
+                            <> </>
                     }
                 </div>
             </div>
