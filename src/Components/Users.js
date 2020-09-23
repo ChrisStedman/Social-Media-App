@@ -12,8 +12,8 @@ const Users = () => {
     //If user not logged in - display notification
     if (!user) {
         return (
-            <div className="notification is-danger is-fullwidth has-text-centered">
-                <div className='title'>You must be logged in to view users</div>
+            <div className="page-min-height">
+                <div className="notification is-danger is-fullwidth ">Must be logged in to view users</div>
             </div>
         )
     }

@@ -5,6 +5,7 @@ const CreateUserForm = ({ setUser, addUser }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [notification, setNotification] = useState({show: false, message: ""})
 
     //Check provided passwords match makes necessary calls to update DB and state
     const formHandler = (event) => {
@@ -21,9 +22,17 @@ const CreateUserForm = ({ setUser, addUser }) => {
                     setUsername("")
                     setPassword("")
                     setConfirmPassword("")
+                    setNotification({show: true, 
+                        message : "Sorry,  user with that username already exists."})
+                    
                 }
-                ).catch(error => {
-                    alert("Create User Unsuccessful. Please try again")
+                ).catch((error) => {
+                    console.log("eror rinfo",error.message)
+                    setUsername("")
+                    setPassword("")
+                    setConfirmPassword("")
+                    setNotification({show: true, 
+                        message : "Sorry,  user with that username already exists."})
                 })
         }
     }
@@ -32,8 +41,13 @@ const CreateUserForm = ({ setUser, addUser }) => {
         <div className="card column is-half is-offset-one-quarter">
             <div className="card-content">
                 <p className="title has-text-centered">Create New Account</p>
+                {notification.show ?
+                    <div className="notification is-small is-danger has-text-centered">
+                        <p>{notification.message}</p>
+                    </div> :
+                    <> </>
+                }
                 <form onSubmit={formHandler}>
-
                     <div className="field">
                         <label className="label">Select Username</label>
                         <input type="text" name="username" value={username}

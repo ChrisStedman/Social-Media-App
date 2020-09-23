@@ -182,7 +182,7 @@ apiRouter.post('/api/users', async (request, response) => {
   
   //If a user is found with same username - return error
   if (foundUsers[0]) {
-    return response.status(401).json({ error: "User already exists." })
+    return response.status(404).json({ error: "User already exists." })
   }
 
   //Get hash based on password

@@ -10,7 +10,7 @@ const User = ({ likeHandler, deleteUser }) => {
     const username = useParams().username
     const user = useSelector(state => state.user)
     const userPosts = useSelector(state => state.posts.filter(p => p.user === username))
-    let userPage = useSelector(state => state.users.filter(u => u.username === username))
+    const userPage = useSelector(state => state.users.find(u => u.username === username))
     const [showFollows, setShowFollows] = useState(false)
 
     //If user not logged in notification shown
@@ -23,7 +23,7 @@ const User = ({ likeHandler, deleteUser }) => {
     }
 
     //If invalid username given notification shown
-    if (!userPage || userPage === 0) {
+    if (!userPage) {
         return (
             <div className="page-min-height">
                 <div className="notification is-danger is-fullwidth ">No user found</div>
@@ -31,7 +31,6 @@ const User = ({ likeHandler, deleteUser }) => {
         )
     }
 
-    userPage = userPage[0]
     return (
         <div>
             <div className="card column is-half is-offset-one-quarter has-text-centered">

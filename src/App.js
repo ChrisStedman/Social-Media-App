@@ -20,6 +20,15 @@ const App = () => {
   const user = useSelector(state => state.user)
   const [updateData, setUpdateData] = useState(true)
 
+
+  //Timer which sets state regularly to trigger refresh of data
+  const updateDataCheck = () => {
+    if (updateData) {
+      setUpdateData(false)
+      setTimeout(() => setUpdateData(true), 20000)
+    }
+  }
+
   //Load user data from server
   useEffect(() => {
     if (updateData) {
@@ -36,13 +45,7 @@ const App = () => {
     updateDataCheck()
   }, [updateData, dispatch, updateDataCheck])
 
-  //Timer which sets state regularly to trigger refresh of data
-  const updateDataCheck = () => {
-    if (updateData) {
-      setUpdateData(false)
-      setTimeout(() => setUpdateData(true), 20000)
-    }
-  }
+
 
   //Check local storage for user data
   //If found - parse and set user state to retain login
