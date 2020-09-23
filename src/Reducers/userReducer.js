@@ -17,6 +17,7 @@ const userReducer = (state = [], action) => {
   }
 
   //Create initial user store
+  //Await response from server then set state
   export const initialiseUsers = () => {
     return async dispatch => {
       const users = await userServices.getAllUsers()
@@ -42,10 +43,15 @@ const userReducer = (state = [], action) => {
     }
   }
 
-  export const removeUser = (id) => {
-    return {
-      type: "DELETE_USER",
-      data : id
+  //Delete user
+  //Await response from server then set state
+  export const removeUser = (user) => {
+    return async dispatch => {
+      await userServices.deleteUser(user)
+      dispatch({
+        type: "DELETE_USER",
+        data : user
+      })
     }
   }
 

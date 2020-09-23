@@ -9,7 +9,6 @@ const getAllPosts = async () => {
 
 //Create new post
 const createPost = async (newPost, user) => {
-
     if(!user){
         return new Promise(() => null)
     }

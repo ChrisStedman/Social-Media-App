@@ -1,16 +1,17 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from './Button'
 
-const Likes = ({currentUser, post, likeHandler}) => {
+const Likes = ({ currentUser, post, likeHandler }) => {
     const [showLikes, setShowLikes] = useState(false)
-    const {likes} = post
- 
-    if(!currentUser)
-    return <> </>
+    const { likes } = post
+    const likesShown = 3;
 
-    return(
-   
+    //If user not logged in, do not display
+    if (!currentUser)
+        return <> </>
+
+    return (
         //If user logged in, display likes
         //Change button display based on like status
         <>
@@ -24,13 +25,12 @@ const Likes = ({currentUser, post, likeHandler}) => {
             {
                 //If showLikes has been toggled, display most recent 4 post likes
                 showLikes ? <div className="field is-horizontal ">
-                    {likes.slice(0, 3).map(
+                    {likes.slice(0, likesShown).map(
                         (u, i) => <Link key={i} to={`/users/${u}`} className="button is-small is-link is-light ml-2">{u}</Link>)
                     }
-                    {likes.length > 3 ? <p className="button is-small is-link is-light ml-2">...</p> : <></>}
+                    {likes.length > likesShown ? <p className="button is-small is-link is-light ml-2">...</p> : <></>}
                 </div> : <> </>}
         </>
-
     )
 }
 

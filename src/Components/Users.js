@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import Follow from './Follow'
@@ -9,8 +9,14 @@ const Users = () => {
     const users = useSelector(state => state.users)
     const user = useSelector(state => state.user)
 
-    if (!user)
-        return <Redirect to="/" />
+    //If user not logged in - display notification
+    if (!user) {
+        return (
+            <div className="notification is-danger is-fullwidth has-text-centered">
+                <div className='title'>You must be logged in to view users</div>
+            </div>
+        )
+    }
 
     return (
         <div className="page-min-height">
@@ -30,11 +36,7 @@ const Users = () => {
 export const DisplayUser = ({ user }) => {
     const { username, avatar, follows } = user
     return (
-
-
-
         <div className="column is-narrow has-text-centered box mr-5 user-image">
-
             <Link to={`/users/${username}`}>
                 <figure >
                     <img src={avatar} alt={`${username} avatar`} />
@@ -44,8 +46,6 @@ export const DisplayUser = ({ user }) => {
             <p><strong>Following {follows.length}</strong></p>
             <Follow username={username} addStyle="is-small is-fullwidth" />
         </div>
-
-
     )
 }
 

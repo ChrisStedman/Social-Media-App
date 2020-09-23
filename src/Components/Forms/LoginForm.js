@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import loginService from '../../services/loginServices'
-import Button from '../Button'
 import { useSelector } from 'react-redux'
+import Button from '../Button'
+import loginService from '../../services/loginServices'
 
 const LoginForm = ({ setUser }) => {
     const user = useSelector(state => state.user)
@@ -9,17 +9,15 @@ const LoginForm = ({ setUser }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
+    //Attempts login with server - sets user or raises alert in error
     const formHandler = (event) => {
-        console.log("Logging in")
         event.preventDefault()
         loginService.login(username, password)
             .then(data => {
-
                 window.localStorage.setItem('loggedUser', JSON.stringify(data))
                 setUser(data)
                 setUsername("")
                 setPassword("")
-
             }
             ).catch(error => {
                 alert("Login Unsuccessful")
@@ -29,11 +27,11 @@ const LoginForm = ({ setUser }) => {
     }
 
     const logout = () => {
-        console.log("Logging out")
         window.localStorage.removeItem('loggedUser')
         setUser(null)
     }
 
+    //If user logged in
     if (user) {
         return (
             <div className="field is-horizontal">
@@ -48,9 +46,8 @@ const LoginForm = ({ setUser }) => {
             </div>
         )
     } else {
-
+        //If user not logged in
         return (
-
             <form onSubmit={formHandler}>
                 <div className="field is-horizontal">
                     <div className="field-body mr-5">

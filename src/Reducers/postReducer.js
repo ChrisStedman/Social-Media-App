@@ -8,7 +8,6 @@ const postReducer = (state = [], action) => {
         return [action.data, ...state]
       case 'TOGGLE_LIKES': {
         const id = action.data.id
-        
         return state.map(post => post.id === id ? action.data : post)
       }
       case 'DELETE_POST':
@@ -19,6 +18,7 @@ const postReducer = (state = [], action) => {
   }
 
   //Create initial post store
+  //Await response from server - Sort & then set state
   export const initialisePosts = () => {
       return async dispatch => {
         const posts = await postServices.getAllPosts()
@@ -33,6 +33,7 @@ const postReducer = (state = [], action) => {
 }
 
   //Add new post to store
+  //Await response from server then set state
   export const createPost = (post, user) => {
     return async dispatch => {
       const newPost = await postServices.createPost(post, user)
@@ -44,6 +45,7 @@ const postReducer = (state = [], action) => {
   }
   
   //Add likes to post
+  //Await response from server then set state
   export const toggleLikes = (post, user) => {
     return async dispatch => {
       const updatedPost = await postServices.updatePost(post, user)
@@ -54,7 +56,8 @@ const postReducer = (state = [], action) => {
     }
   }
 
-
+  //Delete Post
+  //Await response from server then set state
   export const deletePostID = (id, user) => {
     return async dispatch => {
       await postServices.deletePost(id, user)

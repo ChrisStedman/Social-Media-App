@@ -11,7 +11,6 @@ const currentUserReducer = (state = null, action) => {
 
 //Set user in store
 export const setUserLogin = (user) => {
-  console.log("Set user login", user )
   return {
     type: "SET_USER",
     data: user

@@ -4,7 +4,7 @@ import Follow from './Follow'
 
 const UserDetails = ({ user, userAvatar }) => {
 
-    //Condition to check if user has default logo - Meaning deleted
+    //Condition to check if user has default logo (has been deleted)
     if (userAvatar !== 'robot_logo.png') {
         return (
             <div className="media-left has-text-centered">
@@ -17,7 +17,6 @@ const UserDetails = ({ user, userAvatar }) => {
 
                 <Follow username={user} addStyle="is-small is-fullwidth" />
             </div>
-
         )
     }
 
@@ -32,8 +31,7 @@ const UserDetails = ({ user, userAvatar }) => {
 
                 <div className="button is-small is-fullwidth is-danger">
                     User Deleted
-            </div>
-
+                </div>
             </div>
         )
     }

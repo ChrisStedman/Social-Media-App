@@ -20,14 +20,15 @@ const Posts = ({ posts, likeHandler }) => {
         dispatch(deletePostID(postID, user))
     }
   
-    
+    //Iterate over each post and render
     return (
         <div>
             {postCopy.map(post => {
              
                 //Store user avatar 
                 let userAvatar = users.filter(u => u.username === post.user)
-              
+                
+                //If no avatar found (User has been delete) display default avatar
                 if(userAvatar.length === 0){
                     userAvatar = "robot_logo.png"
                 } else {
@@ -44,6 +45,7 @@ const Posts = ({ posts, likeHandler }) => {
             })}
             {
                 //If limit less than number of total posts, display a see-more button
+                //Toggled to display more posts
                 limit < posts.length ? <div className="column is-8 is-offset-2"> <Button eventHandler={() =>
                     setLimit(limit + 10)} action="See more... " addStyle="is-link is-fullwidth mr-6" /> </div>: <></>}
         </div>
@@ -73,7 +75,8 @@ const DisplayPosts = ({ post, userAvatar, likeHandler, currentUser, deletePostHa
                             </div>
                         </div>
 
-                        {currentUser && user === currentUser.details.username ?
+                        {//If current user logged in and post is theirs - show delete button
+                        currentUser && user === currentUser.details.username ?
                             <div className="level-right">
                                 <div className="level-item">
                                     <Button eventHandler={() => deletePostHandler(id)}

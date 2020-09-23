@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 const baseURL = '/api/users'
 
 //Return all users
@@ -8,6 +7,7 @@ const getAllUsers = async () => {
     return response.data
 }
 
+//Get single user
 const getUser = async (userID) => {
     const response = await axios.get(baseURL+'/'+userID)
     return response.data
@@ -24,7 +24,6 @@ const followUser = async (username, user) => {
     if (!user) {
         return new Promise(() => null)
     }
-    console.log("Inside follow user", user.token)
 
     const config = {
         headers: { Authorisation: "Bearer " + user.token }
@@ -73,6 +72,5 @@ const deleteUser = async (user) => {
     const response = await axios.delete(baseURL + '/' + user.details.id, config)
     return response.data
 }
-
 
 export default { getAllUsers, followUser, unfollowUser, createUser, deleteUser, getUser }

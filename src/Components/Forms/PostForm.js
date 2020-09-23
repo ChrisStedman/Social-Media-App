@@ -19,19 +19,19 @@ const PostForm = ({ addPost, user }) => {
 
     const checkPostLength = maxLength => postText.length <= maxLength
 
+    //Sets notification if maximum post length exceeded
     const setNotificationMessage = () =>
         `Your message is ${postText.length} characters which exceeds the limit of ${maxPostLength} characters.
          Please try again`
 
     return (
         <div>
-
             <div className="column is-5 is-offset-3 has-text-centered">
                 <div className="title">New Post</div>
                 <article className="media">
                     <div className="media-left">
                         <figure className="image is-64x64">
-                            <img src={user.details.avatar} alt={`User avatar`}/>
+                            <img src={user.details.avatar} alt={`User avatar`} />
                         </figure>
                     </div>
                     <div className="media-content">
@@ -46,17 +46,13 @@ const PostForm = ({ addPost, user }) => {
                             <button className="button is-dark is-fullwidth" type="submit">Submit New Post</button>
                         </form>
                     </div>
-
-
                 </article>
-
-                
             </div>
             {!checkPostLength(maxPostLength) ?
-                    <div className="notification container is-danger">
-                        <p>{setNotificationMessage()} </p>
-                    </div> : <> </>
-                }
+                <div className="notification container is-danger">
+                    <p>{setNotificationMessage()} </p>
+                </div> : <> </>
+            }
         </div>
 
 
