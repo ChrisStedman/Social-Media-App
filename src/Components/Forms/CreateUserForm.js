@@ -27,7 +27,6 @@ const CreateUserForm = ({ setUser, addUser }) => {
                     
                 }
                 ).catch((error) => {
-                    console.log("eror rinfo",error.message)
                     setUsername("")
                     setPassword("")
                     setConfirmPassword("")

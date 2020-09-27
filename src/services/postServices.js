@@ -33,6 +33,7 @@ const updatePost = async (postID, likes, user) => {
     }
     
     const response = await axios.put(baseURL + "/" + postID, likes, config)
+ 
     return response.data
 }
 
